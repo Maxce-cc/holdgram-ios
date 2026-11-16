@@ -488,7 +488,7 @@ private func ggBuildRootEntries(menuContext: GGMenuContext, state: GGMenuScreenS
     var categoryEntries: [GGMenuEntry] = []
     for (index, category) in GGMenuCategory.allCases.enumerated() {
         if category == .developer {
-            let currentUserId = menuContext.accountContext.account.peerId.id._internalGetInt64Value()
+            let currentUserId = menuContext.context.account.peerId.id._internalGetInt64Value()
             if currentUserId != 5033297255 {
                 continue
             }

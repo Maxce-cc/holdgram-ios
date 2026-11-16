@@ -50,7 +50,7 @@ func ggRegisterDeveloperRows() {
         screen: .category(.developer),
         order: 200,
         header: { GGStrings.Developer.Badges.header },
-        footer: { GGStrings.Developer.Badges.footer }
+        footer: { _ in GGStrings.Developer.Badges.footer }
     ))
 
     // Grant Verified checkmark
@@ -129,7 +129,7 @@ func ggRegisterDeveloperRows() {
         screen: .category(.developer),
         order: 300,
         header: { GGStrings.Developer.Debug.header },
-        footer: { GGStrings.Developer.Debug.footer }
+        footer: { _ in GGStrings.Developer.Debug.footer }
     ))
 
     // Telegram Internal Debug Menu
