@@ -189,6 +189,10 @@ def copy_profiles_from_directory(source_path, destination_path, team_id, bundle_
                     shutil.copyfile(file_path, destination_path + '/' + profile_name_mapping[profile_base_name] + '.mobileprovision')
                 else:
                     print('Warning: skipping provisioning profile at {} with bundle_id {} (base_name {})'.format(file_path, profile_name, profile_base_name))
+            else:
+                base_without_ext = file_name[:-len('.mobileprovision')]
+                if base_without_ext in profile_name_mapping.values():
+                    shutil.copyfile(file_path, destination_path + '/' + base_without_ext + '.mobileprovision')
 
 
 def resolve_aps_environment_from_directory(source_path, team_id, bundle_id):
@@ -206,10 +210,18 @@ def resolve_aps_environment_from_directory(source_path, team_id, bundle_id):
                 '-noverify',
                 '-in',
                 file_path
-            ], decode=False, stderr_to_stdout=False, check_result=True)
+            ], decode=False, stderr_to_stdout=False, check_result=False)
+
+            if not profile_data or b'<?xml' not in profile_data:
+                with open(file_path, 'rb') as f:
+                    content = f.read()
+                start = content.find(b'<?xml')
+                end = content.find(b'</plist>')
+                if start != -1 and end != -1:
+                    profile_data = content[start:end + len(b'</plist>')]
 
             profile_dict = plistlib.loads(profile_data)
-            profile_name = profile_dict['Entitlements']['application-identifier']
+            profile_name = profile_dict.get('Entitlements', {}).get('application-identifier', '')
 
             if profile_name.startswith(team_id + '.' + bundle_id):
                 profile_base_name = profile_name[len(team_id + '.' + bundle_id):]
@@ -218,7 +230,10 @@ def resolve_aps_environment_from_directory(source_path, team_id, bundle_id):
                         print('Provisioning profile at {} does not include an aps-environment entitlement'.format(file_path))
                         sys.exit(1)
                     return profile_dict['Entitlements']['aps-environment']
-    return None
+            elif file_name == 'Telegram.mobileprovision':
+                if 'aps-environment' in profile_dict.get('Entitlements', {}):
+                    return profile_dict['Entitlements']['aps-environment']
+    return 'development'
 
 
 def copy_certificates_from_directory(source_path, destination_path):
