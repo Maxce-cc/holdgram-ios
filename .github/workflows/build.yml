@@ -53,7 +53,7 @@ jobs:
               "submodules/tlottie/tlottie": ("https://github.com/dkaraush/tlottie.git", "31f1b542f88e7b4be9a01e749920d857535fc715"),
               "third-party/dav1d/dav1d": ("https://github.com/ali-fareed/dav1d.git", "330e20672e85f9de1678dccd6957845898ef57a1"),
               "third-party/libvpx/libvpx": ("https://github.com/webmproject/libvpx.git", "e7bfd8b6c230a6824e7fd1efa2378a7322986128"),
-              "third-party/mtproto-engine": ("https://github.com/macosswift/mtproto-engine.git", "0de759a36cbb50c1e98560c1ffa38590d317b0fc"),
+              "third-party/mtproto-engine": ("https://github.com/TelegramMessenger/mtproto-engine.git", "0d738b0d159cda8e7dd8e193a563c832fd0e06ed"),
               "third-party/td/td": ("https://github.com/tdlib/td", "e894536b2f46caad93f997448d2daff9431b19dd"),
               "third-party/wallet-engine/wallet-engine": ("https://github.com/i582/wallet-engine.git", "e59e0d89d7ee90c388bf36e3334c5b276f396697"),
               "third-party/webrtc/webrtc": ("https://github.com/ali-fareed/webrtc.git", "6513c71d6c80311d69a0a6b9c09fcf32cfbeb247"),
