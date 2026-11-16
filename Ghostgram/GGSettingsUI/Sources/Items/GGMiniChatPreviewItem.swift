@@ -104,6 +104,38 @@ private func ggMiniChatHidesEmojiStatus() -> Bool {
     return GGChatListStyleHooks.rowStyle.handlers[0]().hidesEmojiStatus
 }
 
+@inline(never)
+private func ggMiniChatHeaderStatusIcon(
+    headerPeer: GGMiniChatContent.Header.Peer?,
+    accountPeer: EnginePeer?,
+    theme: PresentationTheme,
+    context: AccountContext
+) -> (content: EmojiStatusComponent.Content, particleColor: UIColor?)? {
+    guard case .account? = headerPeer, let peer = accountPeer, !ggMiniChatHidesEmojiStatus() else {
+        return nil
+    }
+    if let peerEmojiStatus = peer.emojiStatus {
+        let (fileId, particleColor): (Int64, UIColor?) = withExtendedLifetime(peerEmojiStatus) {
+            let fid = peerEmojiStatus.fileId
+            let col = peerEmojiStatus.color.flatMap { UIColor(rgb: UInt32(bitPattern: $0)) }
+            return (fid, col)
+        }
+        return (
+            .animation(
+                content: .customEmoji(fileId: fileId),
+                size: CGSize(width: 32.0, height: 32.0),
+                placeholderColor: theme.list.mediaPlaceholderColor,
+                themeColor: theme.list.itemAccentColor,
+                loopMode: .count(2)
+            ),
+            particleColor
+        )
+    } else if peer.isPremium && !PremiumConfiguration.with(appConfiguration: context.currentAppConfiguration.with { $0 }).isPremiumDisabled {
+        return (.premium(color: theme.list.itemAccentColor), nil)
+    }
+    return nil
+}
+
 func ggPreviewTimestamp(ageSeconds: Int32) -> Int32 {
     return Int32(CFAbsoluteTimeGetCurrent() + kCFAbsoluteTimeIntervalSince1970) - ageSeconds
 }
@@ -358,13 +390,7 @@ private final class GGMiniChatPreviewItemNode: ListViewItemNode {
                 let theme = presentationData.theme
                 // The account's own emoji status (or the Premium star) after the name, as the chat's
                 // title shows it — unless «Скрыть эмодзи-статусы» is on.
-                if case .account = header.peer, let peer = item.accountPeer, !ggMiniChatHidesEmojiStatus() {
-                    if let emojiStatus = peer.emojiStatus {
-                        headerStatusIcon = (.animation(content: .customEmoji(fileId: emojiStatus.fileId), size: CGSize(width: 32.0, height: 32.0), placeholderColor: theme.list.mediaPlaceholderColor, themeColor: theme.list.itemAccentColor, loopMode: .count(2)), emojiStatus.color.flatMap { UIColor(rgb: UInt32(bitPattern: $0)) })
-                    } else if peer.isPremium && !PremiumConfiguration.with(appConfiguration: item.context.currentAppConfiguration.with { $0 }).isPremiumDisabled {
-                        headerStatusIcon = (.premium(color: theme.list.itemAccentColor), nil)
-                    }
-                }
+                headerStatusIcon = ggMiniChatHeaderStatusIcon(headerPeer: header.peer, accountPeer: item.accountPeer, theme: theme, context: item.context)
                 let statusIconWidth: CGFloat = headerStatusIcon == nil ? 0.0 : ggMiniChatHeaderStatusIconSize + ggMiniChatHeaderStatusIconSpacing
                 // Between the back pill and the avatar, minus the title pill's own padding.
                 let constrainedWidth = max(1.0, params.width - params.leftInset - params.rightInset - 2.0 * (ggMiniChatHeaderSideInset + ggMiniChatHeaderPillSize + 8.0) - 28.0)
