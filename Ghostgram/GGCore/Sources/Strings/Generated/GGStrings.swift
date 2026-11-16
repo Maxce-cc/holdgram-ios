@@ -5356,6 +5356,261 @@ public enum GGStrings {
         }
     }
 
+    public enum Developer {
+        public enum Action {
+            /// No custom badges granted to other users yet.⏎(Your ID {userId} has permanent Developer status).
+            public static func badgesListEmpty(userId: Swift.String) -> Swift.String {
+                return GGLocalization.shared.format("developer.action.badgesListEmpty", [("userId", userId)])
+            }
+
+            /// Granted Badges
+            public static var badgesListTitle: Swift.String {
+                return GGLocalization.shared.string("developer.action.badgesListTitle")
+            }
+
+            /// Total granted badges: {count}⏎⏎
+            public static func badgesListTotal(count: Swift.Int) -> Swift.String {
+                return GGLocalization.shared.format("developer.action.badgesListTotal", [("count", Swift.String(count))])
+            }
+
+            /// Cancel
+            public static var cancel: Swift.String {
+                return GGLocalization.shared.string("developer.action.cancel")
+            }
+
+            /// Close
+            public static var close: Swift.String {
+                return GGLocalization.shared.string("developer.action.close")
+            }
+
+            /// Done
+            public static var done: Swift.String {
+                return GGLocalization.shared.string("developer.action.done")
+            }
+
+            /// Grant
+            public static var grant: Swift.String {
+                return GGLocalization.shared.string("developer.action.grant")
+            }
+
+            /// Enter Telegram User ID of the user you want to grant the "{badge}" badge to:
+            public static func grantBadgeMessage(badge: Swift.String) -> Swift.String {
+                return GGLocalization.shared.format("developer.action.grantBadgeMessage", [("badge", badge)])
+            }
+
+            /// e.g. 123456789
+            public static var grantBadgePlaceholderId: Swift.String {
+                return GGLocalization.shared.string("developer.action.grantBadgePlaceholderId")
+            }
+
+            /// Badge caption (optional)
+            public static var grantBadgePlaceholderText: Swift.String {
+                return GGLocalization.shared.string("developer.action.grantBadgePlaceholderText")
+            }
+
+            /// Grant Badge
+            public static var grantBadgeTitle: Swift.String {
+                return GGLocalization.shared.string("developer.action.grantBadgeTitle")
+            }
+
+            /// Badge granted to user ID {userId}!
+            public static func grantSuccess(userId: Swift.String) -> Swift.String {
+                return GGLocalization.shared.format("developer.action.grantSuccess", [("userId", userId)])
+            }
+
+            /// Clear Logs
+            public static var logsClearTitle: Swift.String {
+                return GGLocalization.shared.string("developer.action.logsClearTitle")
+            }
+
+            /// Removed log files: {count}
+            public static func logsCleared(count: Swift.Int) -> Swift.String {
+                return GGLocalization.shared.format("developer.action.logsCleared", [("count", Swift.String(count))])
+            }
+
+            /// No log files found at this time.
+            public static var logsEmpty: Swift.String {
+                return GGLocalization.shared.string("developer.action.logsEmpty")
+            }
+
+            /// Logs
+            public static var logsTitle: Swift.String {
+                return GGLocalization.shared.string("developer.action.logsTitle")
+            }
+
+            /// OK
+            public static var ok: Swift.String {
+                return GGLocalization.shared.string("developer.action.ok")
+            }
+
+            /// Revoke
+            public static var revoke: Swift.String {
+                return GGLocalization.shared.string("developer.action.revoke")
+            }
+
+            /// Enter Telegram User ID of the user to revoke badge from:
+            public static var revokeBadgeMessage: Swift.String {
+                return GGLocalization.shared.string("developer.action.revokeBadgeMessage")
+            }
+
+            /// User ID
+            public static var revokeBadgePlaceholderId: Swift.String {
+                return GGLocalization.shared.string("developer.action.revokeBadgePlaceholderId")
+            }
+
+            /// Revoke Badge
+            public static var revokeBadgeTitle: Swift.String {
+                return GGLocalization.shared.string("developer.action.revokeBadgeTitle")
+            }
+
+            /// Badge revoked from user {userId}.
+            public static func revokeSuccess(userId: Swift.String) -> Swift.String {
+                return GGLocalization.shared.format("developer.action.revokeSuccess", [("userId", userId)])
+            }
+
+            /// Success
+            public static var success: Swift.String {
+                return GGLocalization.shared.string("developer.action.success")
+            }
+        }
+
+        public enum Badges {
+            /// Granted Badges List
+            public static var badgesList: Swift.String {
+                return GGLocalization.shared.string("developer.badges.badgesList")
+            }
+
+            /// View all users with personal badges
+            public static var badgesListSubtitle: Swift.String {
+                return GGLocalization.shared.string("developer.badges.badgesListSubtitle")
+            }
+
+            /// Badges are displayed next to the user's name in chats, dialogs, and profile.
+            public static var footer: Swift.String {
+                return GGLocalization.shared.string("developer.badges.footer")
+            }
+
+            /// Grant VIP / Supporter Badge
+            public static var grantSupporter: Swift.String {
+                return GGLocalization.shared.string("developer.badges.grantSupporter")
+            }
+
+            /// Gold badge of project sponsor
+            public static var grantSupporterSubtitle: Swift.String {
+                return GGLocalization.shared.string("developer.badges.grantSupporterSubtitle")
+            }
+
+            /// Grant Team Badge (HoldGram Team)
+            public static var grantTeam: Swift.String {
+                return GGLocalization.shared.string("developer.badges.grantTeam")
+            }
+
+            /// Development team member badge
+            public static var grantTeamSubtitle: Swift.String {
+                return GGLocalization.shared.string("developer.badges.grantTeamSubtitle")
+            }
+
+            /// Grant Blue Checkmark (Verified)
+            public static var grantVerified: Swift.String {
+                return GGLocalization.shared.string("developer.badges.grantVerified")
+            }
+
+            /// Assign verified user status
+            public static var grantVerifiedSubtitle: Swift.String {
+                return GGLocalization.shared.string("developer.badges.grantVerifiedSubtitle")
+            }
+
+            /// BADGES & CHECKMARKS MANAGEMENT
+            public static var header: Swift.String {
+                return GGLocalization.shared.string("developer.badges.header")
+            }
+
+            /// Revoke Badge from User
+            public static var revokeBadge: Swift.String {
+                return GGLocalization.shared.string("developer.badges.revokeBadge")
+            }
+
+            /// Remove granted status by User ID
+            public static var revokeBadgeSubtitle: Swift.String {
+                return GGLocalization.shared.string("developer.badges.revokeBadgeSubtitle")
+            }
+        }
+
+        public enum Debug {
+            /// Clear Accumulated Logs
+            public static var clearLogs: Swift.String {
+                return GGLocalization.shared.string("developer.debug.clearLogs")
+            }
+
+            /// Delete temporary log files from device
+            public static var clearLogsSubtitle: Swift.String {
+                return GGLocalization.shared.string("developer.debug.clearLogsSubtitle")
+            }
+
+            /// Tools for bug catching, log export, and system diagnostics.
+            public static var footer: Swift.String {
+                return GGLocalization.shared.string("developer.debug.footer")
+            }
+
+            /// DEBUGGING & DIAGNOSTICS
+            public static var header: Swift.String {
+                return GGLocalization.shared.string("developer.debug.header")
+            }
+
+            /// Share Log Files
+            public static var shareLogs: Swift.String {
+                return GGLocalization.shared.string("developer.debug.shareLogs")
+            }
+
+            /// Export all log files (.log) via Share menu
+            public static var shareLogsSubtitle: Swift.String {
+                return GGLocalization.shared.string("developer.debug.shareLogsSubtitle")
+            }
+
+            /// Telegram Internal Debug Menu
+            public static var telegramDebug: Swift.String {
+                return GGLocalization.shared.string("developer.debug.telegramDebug")
+            }
+
+            /// Database cache reset, MTProto, system toggles
+            public static var telegramDebugSubtitle: Swift.String {
+                return GGLocalization.shared.string("developer.debug.telegramDebugSubtitle")
+            }
+        }
+
+        public enum Status {
+            /// Active
+            public static var active: Swift.String {
+                return GGLocalization.shared.string("developer.status.active")
+            }
+
+            /// Developer access active.⏎⏎User ID: {userId}⏎Bundle ID: {bundleId}⏎Version: {version}⏎Base: Telegram iOS 13.1.1
+            public static func alertMessage(userId: Swift.String, bundleId: Swift.String, version: Swift.String) -> Swift.String {
+                return GGLocalization.shared.format("developer.status.alertMessage", [("userId", userId), ("bundleId", bundleId), ("version", version)])
+            }
+
+            /// HoldGram Developer
+            public static var alertTitle: Swift.String {
+                return GGLocalization.shared.string("developer.status.alertTitle")
+            }
+
+            /// DEVELOPER STATUS
+            public static var header: Swift.String {
+                return GGLocalization.shared.string("developer.status.header")
+            }
+
+            /// User ID: {userId} · Bundle: {bundleId} · v{version}
+            public static func subtitle(userId: Swift.String, bundleId: Swift.String, version: Swift.String) -> Swift.String {
+                return GGLocalization.shared.format("developer.status.subtitle", [("userId", userId), ("bundleId", bundleId), ("version", version)])
+            }
+
+            /// HoldGram Developer
+            public static var title: Swift.String {
+                return GGLocalization.shared.string("developer.status.title")
+            }
+        }
+    }
+
     public enum Downloads {
         public enum Boost {
             /// Maximum
@@ -8566,6 +8821,16 @@ public enum GGStrings {
             /// Messages, chat list, panels and icons
             public static var appearanceInfo: Swift.String {
                 return GGLocalization.shared.string("menu.category.appearanceInfo")
+            }
+
+            /// Developer
+            public static var developer: Swift.String {
+                return GGLocalization.shared.string("menu.category.developer")
+            }
+
+            /// Badges, debug logs and developer tools
+            public static var developerInfo: Swift.String {
+                return GGLocalization.shared.string("menu.category.developerInfo")
             }
 
             /// Media & Calls

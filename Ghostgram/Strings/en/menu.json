@@ -9,6 +9,8 @@
   "menu.about.versionCopied": "Version copied",
   "menu.category.appearance": "Appearance",
   "menu.category.appearanceInfo": "Messages, chat list, panels and icons",
+  "menu.category.developer": "Developer",
+  "menu.category.developerInfo": "Badges, debug logs and developer tools",
   "menu.category.media": "Media & Calls",
   "menu.category.mediaInfo": "Voice, video messages, calls and downloads",
   "menu.category.messages": "Messages",

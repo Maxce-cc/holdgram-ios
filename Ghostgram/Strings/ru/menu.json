@@ -9,6 +9,8 @@
   "menu.about.versionCopied": "Версия скопирована",
   "menu.category.appearance": "Оформление",
   "menu.category.appearanceInfo": "Сообщения, список чатов, панели и иконки",
+  "menu.category.developer": "Разработчик",
+  "menu.category.developerInfo": "Значки, дебаг-логи и инструменты отладки",
   "menu.category.media": "Медиа и звонки",
   "menu.category.mediaInfo": "Голос, кружки, звонки и загрузки",
   "menu.category.messages": "Сообщения",

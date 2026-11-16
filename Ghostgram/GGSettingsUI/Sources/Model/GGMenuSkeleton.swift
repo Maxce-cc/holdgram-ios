@@ -21,7 +21,7 @@ extension GGMenuCategory {
         case .more:
             return GGStrings.Menu.Category.more
         case .developer:
-            return "Developer"
+            return GGStrings.Menu.Category.developer
         }
     }
 
@@ -40,7 +40,7 @@ extension GGMenuCategory {
         case .more:
             return GGStrings.Menu.Category.moreInfo
         case .developer:
-            return "Значки, дебаг-логи и инструменты отладки"
+            return GGStrings.Menu.Category.developerInfo
         }
     }
 

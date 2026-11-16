@@ -22,26 +22,26 @@ func ggRegisterDeveloperRows() {
         id: .developerStatus,
         screen: .category(.developer),
         order: 100,
-        header: { "СТАТУС РАЗРАБОТЧИКА" }
+        header: { GGStrings.Developer.Status.header }
     ))
 
     GGMenuRegistry.register(GGMenuRow(
         id: "developer.status",
         section: .developerStatus,
         order: 100,
-        title: { "HoldGram Developer" },
-        subtitle: { "User ID: 5033297255 · Бандл: why.holdgram.wtf · v1.1.0" },
+        title: { GGStrings.Developer.Status.title },
+        subtitle: { GGStrings.Developer.Status.subtitle(userId: "5033297255", bundleId: "why.holdgram.wtf", version: "1.1.0") },
         icon: .bundle("Chat/Context Menu/Restrict"),
         kind: .action({ menuContext in
             let alert = UIAlertController(
-                title: "HoldGram Developer",
-                message: "Доступ разработчика активен.\n\nUser ID: 5033297255\nBundle ID: why.holdgram.wtf\nВерсия: 1.1.0\nБаза: Telegram iOS 13.1.1",
+                title: GGStrings.Developer.Status.alertTitle,
+                message: GGStrings.Developer.Status.alertMessage(userId: "5033297255", bundleId: "why.holdgram.wtf", version: "1.1.0"),
                 preferredStyle: .alert
             )
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            alert.addAction(UIAlertAction(title: GGStrings.Developer.Action.ok, style: .default))
             menuContext.presentNative(alert)
         }),
-        label: { _ in "Активен" }
+        label: { _ in GGStrings.Developer.Status.active }
     ))
 
     // 2. Badges Management Section
@@ -49,8 +49,8 @@ func ggRegisterDeveloperRows() {
         id: .developerBadges,
         screen: .category(.developer),
         order: 200,
-        header: { "УПРАВЛЕНИЕ ЗНАЧКАМИ И ГАЛОЧКАМИ" },
-        footer: { "Значки отображаются возле имени пользователя в чатах, диалогах и профиле." }
+        header: { GGStrings.Developer.Badges.header },
+        footer: { GGStrings.Developer.Badges.footer }
     ))
 
     // Grant Verified checkmark
@@ -58,8 +58,8 @@ func ggRegisterDeveloperRows() {
         id: "developer.grantVerified",
         section: .developerBadges,
         order: 100,
-        title: { "Выдать синюю галочку (Verified)" },
-        subtitle: { "Назначить статус проверенного пользователя" },
+        title: { GGStrings.Developer.Badges.grantVerified },
+        subtitle: { GGStrings.Developer.Badges.grantVerifiedSubtitle },
         icon: .bundle("Chat/Context Menu/Select"),
         kind: .action({ menuContext in
             ggPromptGrantBadge(menuContext: menuContext, kind: 2, colorRGB: 0x007AFF, defaultText: "HoldGram Verified")
@@ -71,8 +71,8 @@ func ggRegisterDeveloperRows() {
         id: "developer.grantTeam",
         section: .developerBadges,
         order: 200,
-        title: { "Выдать значок команды (HoldGram Team)" },
-        subtitle: { "Значок участника команды разработки" },
+        title: { GGStrings.Developer.Badges.grantTeam },
+        subtitle: { GGStrings.Developer.Badges.grantTeamSubtitle },
         icon: .bundle("Chat/Context Menu/Tag"),
         kind: .action({ menuContext in
             ggPromptGrantBadge(menuContext: menuContext, kind: 1, colorRGB: 0xFE2C55, defaultText: "HoldGram Team")
@@ -84,8 +84,8 @@ func ggRegisterDeveloperRows() {
         id: "developer.grantSupporter",
         section: .developerBadges,
         order: 300,
-        title: { "Выдать значок VIP / Supporter" },
-        subtitle: { "Золотой значок спонсора проекта" },
+        title: { GGStrings.Developer.Badges.grantSupporter },
+        subtitle: { GGStrings.Developer.Badges.grantSupporterSubtitle },
         icon: .bundle("Chat/Context Menu/Pin"),
         kind: .action({ menuContext in
             ggPromptGrantBadge(menuContext: menuContext, kind: 0, colorRGB: 0xFFD700, defaultText: "HoldGram Supporter")
@@ -97,8 +97,8 @@ func ggRegisterDeveloperRows() {
         id: "developer.revokeBadge",
         section: .developerBadges,
         order: 400,
-        title: { "Отозвать значок у пользователя" },
-        subtitle: { "Снять выданный статус по User ID" },
+        title: { GGStrings.Developer.Badges.revokeBadge },
+        subtitle: { GGStrings.Developer.Badges.revokeBadgeSubtitle },
         icon: .bundle("Chat/Context Menu/Clear"),
         kind: .action({ menuContext in
             ggPromptRevokeBadge(menuContext: menuContext)
@@ -111,8 +111,8 @@ func ggRegisterDeveloperRows() {
         id: "developer.badgesList",
         section: .developerBadges,
         order: 500,
-        title: { "Список выданных значков" },
-        subtitle: { "Посмотреть всех пользователей с персональными значками" },
+        title: { GGStrings.Developer.Badges.badgesList },
+        subtitle: { GGStrings.Developer.Badges.badgesListSubtitle },
         icon: .bundle("Chat/Context Menu/List"),
         kind: .action({ menuContext in
             ggShowBadgesList(menuContext: menuContext)
@@ -128,8 +128,8 @@ func ggRegisterDeveloperRows() {
         id: .developerDebug,
         screen: .category(.developer),
         order: 300,
-        header: { "ОТЛАДКА И ДИАГНОСТИКА" },
-        footer: { "Инструменты для отлова багов, выгрузки дампов и системного тестирования." }
+        header: { GGStrings.Developer.Debug.header },
+        footer: { GGStrings.Developer.Debug.footer }
     ))
 
     // Telegram Internal Debug Menu
@@ -137,8 +137,8 @@ func ggRegisterDeveloperRows() {
         id: "developer.telegramDebug",
         section: .developerDebug,
         order: 100,
-        title: { "Внутреннее меню отладки Telegram" },
-        subtitle: { "Сброс кэшей базы данных, MTProto, системные переключатели" },
+        title: { GGStrings.Developer.Debug.telegramDebug },
+        subtitle: { GGStrings.Developer.Debug.telegramDebugSubtitle },
         icon: .bundle("Chat/Context Menu/Settings"),
         kind: .action({ menuContext in
             if let controller = GGSettingsUIEnvironment.shared.makeDebugController?(menuContext.context) {
@@ -155,8 +155,8 @@ func ggRegisterDeveloperRows() {
         id: "developer.shareLogs",
         section: .developerDebug,
         order: 200,
-        title: { "Поделиться файлами логов" },
-        subtitle: { "Экспорт всех файлов журнала (.log) через меню «Поделиться»" },
+        title: { GGStrings.Developer.Debug.shareLogs },
+        subtitle: { GGStrings.Developer.Debug.shareLogsSubtitle },
         icon: .bundle("Chat/Context Menu/Share"),
         kind: .action({ menuContext in
             ggShareAppLogs(menuContext: menuContext)
@@ -168,8 +168,8 @@ func ggRegisterDeveloperRows() {
         id: "developer.clearLogs",
         section: .developerDebug,
         order: 300,
-        title: { "Очистить накопленные логи" },
-        subtitle: { "Удалить временные лог-файлы с устройства" },
+        title: { GGStrings.Developer.Debug.clearLogs },
+        subtitle: { GGStrings.Developer.Debug.clearLogsSubtitle },
         icon: .bundle("Chat/Context Menu/Delete"),
         kind: .action({ menuContext in
             ggClearAppLogs(menuContext: menuContext)
@@ -182,20 +182,20 @@ func ggRegisterDeveloperRows() {
 
 private func ggPromptGrantBadge(menuContext: GGMenuContext, kind: UInt8, colorRGB: UInt32, defaultText: String) {
     let alert = UIAlertController(
-        title: "Выдача значка",
-        message: "Введите Telegram User ID пользователя, которому хотите выдать значок «\(defaultText)»:",
+        title: GGStrings.Developer.Action.grantBadgeTitle,
+        message: GGStrings.Developer.Action.grantBadgeMessage(badge: defaultText),
         preferredStyle: .alert
     )
     alert.addTextField { tf in
-        tf.placeholder = "Например, 123456789"
+        tf.placeholder = GGStrings.Developer.Action.grantBadgePlaceholderId
         tf.keyboardType = .numberPad
     }
     alert.addTextField { tf in
-        tf.placeholder = "Подпись к значку (необязательно)"
+        tf.placeholder = GGStrings.Developer.Action.grantBadgePlaceholderText
         tf.text = defaultText
     }
-    alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
-    alert.addAction(UIAlertAction(title: "Выдать", style: .default, handler: { _ in
+    alert.addAction(UIAlertAction(title: GGStrings.Developer.Action.cancel, style: .cancel))
+    alert.addAction(UIAlertAction(title: GGStrings.Developer.Action.grant, style: .default, handler: { _ in
         guard let idText = alert.textFields?[0].text?.trimmingCharacters(in: .whitespacesAndNewlines),
               let userId = Int64(idText), userId > 0 else {
             return
@@ -205,8 +205,8 @@ private func ggPromptGrantBadge(menuContext: GGMenuContext, kind: UInt8, colorRG
 
         HoldGramDeveloperStore.shared.grantBadge(userId: userId, kind: kind, colorRGB: colorRGB, text: textToUse)
 
-        let success = UIAlertController(title: "Успешно", message: "Значок выдан пользователю ID \(userId)!", preferredStyle: .alert)
-        success.addAction(UIAlertAction(title: "OK", style: .default))
+        let success = UIAlertController(title: GGStrings.Developer.Action.success, message: GGStrings.Developer.Action.grantSuccess(userId: "\(userId)"), preferredStyle: .alert)
+        success.addAction(UIAlertAction(title: GGStrings.Developer.Action.ok, style: .default))
         menuContext.presentNative(success)
     }))
     menuContext.presentNative(alert)
@@ -214,23 +214,23 @@ private func ggPromptGrantBadge(menuContext: GGMenuContext, kind: UInt8, colorRG
 
 private func ggPromptRevokeBadge(menuContext: GGMenuContext) {
     let alert = UIAlertController(
-        title: "Отозвать значок",
-        message: "Введите Telegram User ID пользователя для снятия значка:",
+        title: GGStrings.Developer.Action.revokeBadgeTitle,
+        message: GGStrings.Developer.Action.revokeBadgeMessage,
         preferredStyle: .alert
     )
     alert.addTextField { tf in
-        tf.placeholder = "User ID"
+        tf.placeholder = GGStrings.Developer.Action.revokeBadgePlaceholderId
         tf.keyboardType = .numberPad
     }
-    alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
-    alert.addAction(UIAlertAction(title: "Отозвать", style: .destructive, handler: { _ in
+    alert.addAction(UIAlertAction(title: GGStrings.Developer.Action.cancel, style: .cancel))
+    alert.addAction(UIAlertAction(title: GGStrings.Developer.Action.revoke, style: .destructive, handler: { _ in
         guard let idText = alert.textFields?[0].text?.trimmingCharacters(in: .whitespacesAndNewlines),
               let userId = Int64(idText) else {
             return
         }
         HoldGramDeveloperStore.shared.revokeBadge(userId: userId)
-        let success = UIAlertController(title: "Готово", message: "Значок у пользователя \(userId) отозван.", preferredStyle: .alert)
-        success.addAction(UIAlertAction(title: "OK", style: .default))
+        let success = UIAlertController(title: GGStrings.Developer.Action.done, message: GGStrings.Developer.Action.revokeSuccess(userId: "\(userId)"), preferredStyle: .alert)
+        success.addAction(UIAlertAction(title: GGStrings.Developer.Action.ok, style: .default))
         menuContext.presentNative(success)
     }))
     menuContext.presentNative(alert)
@@ -239,20 +239,20 @@ private func ggPromptRevokeBadge(menuContext: GGMenuContext) {
 private func ggShowBadgesList(menuContext: GGMenuContext) {
     let badges = HoldGramDeveloperStore.shared.allBadges()
     if badges.isEmpty {
-        let alert = UIAlertController(title: "Выданные значки", message: "Пока нет выданных значков другим пользователям.\n(Ваш ID 5033297255 имеет статус Developer постоянно).", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        let alert = UIAlertController(title: GGStrings.Developer.Action.badgesListTitle, message: GGStrings.Developer.Action.badgesListEmpty(userId: "5033297255"), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: GGStrings.Developer.Action.ok, style: .default))
         menuContext.presentNative(alert)
         return
     }
 
-    var text = "Всего выданных значков: \(badges.count)\n\n"
+    var text = GGStrings.Developer.Action.badgesListTotal(count: badges.count)
     for b in badges {
         let typeName = (b.kind == 1) ? "Team" : ((b.kind == 2) ? "Verified" : "Supporter")
         text += "• ID: \(b.userId) — [\(typeName)] \"\(b.text)\"\n"
     }
 
-    let alert = UIAlertController(title: "Выданные значки", message: text, preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: "Закрыть", style: .default))
+    let alert = UIAlertController(title: GGStrings.Developer.Action.badgesListTitle, message: text, preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: GGStrings.Developer.Action.close, style: .default))
     menuContext.presentNative(alert)
 }
 
@@ -269,8 +269,8 @@ private func ggShareAppLogs(menuContext: GGMenuContext) {
     }
 
     if logURLs.isEmpty {
-        let alert = UIAlertController(title: "Логи", message: "Файлов логов на данный момент нет.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        let alert = UIAlertController(title: GGStrings.Developer.Action.logsTitle, message: GGStrings.Developer.Action.logsEmpty, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: GGStrings.Developer.Action.ok, style: .default))
         menuContext.presentNative(alert)
         return
     }
@@ -292,7 +292,7 @@ private func ggClearAppLogs(menuContext: GGMenuContext) {
         }
     }
 
-    let alert = UIAlertController(title: "Очистка логов", message: "Удалено файлов журнала: \(removedCount)", preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: "OK", style: .default))
+    let alert = UIAlertController(title: GGStrings.Developer.Action.logsClearTitle, message: GGStrings.Developer.Action.logsCleared(count: removedCount), preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: GGStrings.Developer.Action.ok, style: .default))
     menuContext.presentNative(alert)
 }
