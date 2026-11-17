@@ -106,12 +106,11 @@ private func ggMiniChatHidesEmojiStatus() -> Bool {
 
 @inline(never)
 private func ggMiniChatHeaderStatusIcon(
-    headerPeer: GGMiniChatContent.Header.Peer?,
-    accountPeer: EnginePeer?,
+    peer: EnginePeer?,
     theme: PresentationTheme,
     context: AccountContext
 ) -> (content: EmojiStatusComponent.Content, particleColor: UIColor?)? {
-    guard case .account? = headerPeer, let peer = accountPeer, !ggMiniChatHidesEmojiStatus() else {
+    guard let peer = peer, !ggMiniChatHidesEmojiStatus() else {
         return nil
     }
     if let peerEmojiStatus = peer.emojiStatus {
@@ -390,7 +389,9 @@ private final class GGMiniChatPreviewItemNode: ListViewItemNode {
                 let theme = presentationData.theme
                 // The account's own emoji status (or the Premium star) after the name, as the chat's
                 // title shows it — unless «Скрыть эмодзи-статусы» is on.
-                headerStatusIcon = ggMiniChatHeaderStatusIcon(headerPeer: header.peer, accountPeer: item.accountPeer, theme: theme, context: item.context)
+                if case .account = header.peer {
+                    headerStatusIcon = ggMiniChatHeaderStatusIcon(peer: item.accountPeer, theme: theme, context: item.context)
+                }
                 let statusIconWidth: CGFloat = headerStatusIcon == nil ? 0.0 : ggMiniChatHeaderStatusIconSize + ggMiniChatHeaderStatusIconSpacing
                 // Between the back pill and the avatar, minus the title pill's own padding.
                 let constrainedWidth = max(1.0, params.width - params.leftInset - params.rightInset - 2.0 * (ggMiniChatHeaderSideInset + ggMiniChatHeaderPillSize + 8.0) - 28.0)
