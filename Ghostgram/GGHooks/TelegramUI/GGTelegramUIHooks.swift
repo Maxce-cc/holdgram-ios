@@ -45,7 +45,7 @@ func ggApplicationDidLaunch(appGroupPath: String) {
     }
     // `ghostgram://settings` / `gg://settings` open the Ghostgram menu (features may claim other links).
     GGLifecycleHooks.openURL.register({ url, context, navigationController in
-        guard let scheme = url.scheme?.lowercased(), scheme == "ghostgram" || scheme == "gg" else {
+        guard let scheme = url.scheme?.lowercased(), scheme == "ghostgram" || scheme == "gg" || scheme == "holdgram" else {
             return false
         }
         if url.host?.lowercased() == "settings" {

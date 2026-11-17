@@ -11,7 +11,7 @@ import GGHooks
 enum GGExtrasRoutes {
     static func register() {
         GGLifecycleHooks.openURL.register({ url, context, _ in
-            guard let scheme = url.scheme?.lowercased(), scheme == "ghostgram" || scheme == "gg" else {
+            guard let scheme = url.scheme?.lowercased(), scheme == "ghostgram" || scheme == "gg" || scheme == "holdgram" else {
                 return false
             }
             switch url.host?.lowercased() ?? "" {

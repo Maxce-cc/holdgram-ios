@@ -320,7 +320,11 @@ private func extractAccountManagerState(records: AccountRecordsView<TelegramAcco
         let appGroupName = "group.\(baseAppBundleId)"
 
         let configuration = URLSessionConfiguration.background(withIdentifier: identifier)
-        configuration.sharedContainerIdentifier = appGroupName
+        if FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupName) != nil {
+            configuration.sharedContainerIdentifier = appGroupName
+        } else if FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ph.telegra.Telegraph") != nil {
+            configuration.sharedContainerIdentifier = "group.ph.telegra.Telegraph"
+        }
         configuration.isDiscretionary = false
         let session = URLSession(configuration: configuration, delegate: self, delegateQueue: .main)
         self.urlSessions.append(session)
@@ -571,10 +575,20 @@ private func extractAccountManagerState(records: AccountRecordsView<TelegramAcco
         
         let baseAppBundleId = Bundle.main.bundleIdentifier!
         let appGroupName = "group.\(baseAppBundleId)"
-        try! PasscodeEnvironment.shared.configure(PasscodeConfiguration(appGroupIdentifier: appGroupName, processRole: .mainApp, biometricKeychainService: walletBiometricKeychainService), privateAccessGroup: {
+        let _ = try? PasscodeEnvironment.shared.configure(PasscodeConfiguration(appGroupIdentifier: appGroupName, processRole: .mainApp, biometricKeychainService: walletBiometricKeychainService), privateAccessGroup: {
             BuildConfig.keychainAccessGroup(baseAppBundleId: baseAppBundleId)
         })
-        let maybeAppGroupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupName)
+        var maybeAppGroupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupName)
+        if maybeAppGroupUrl == nil {
+            maybeAppGroupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ph.telegra.Telegraph")
+        }
+        if maybeAppGroupUrl == nil {
+            if let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                let appGroupFallback = documentsUrl.appendingPathComponent("shared_container")
+                let _ = try? FileManager.default.createDirectory(at: appGroupFallback, withIntermediateDirectories: true, attributes: nil)
+                maybeAppGroupUrl = appGroupFallback
+            }
+        }
         
         let buildConfig = BuildConfig(baseAppBundleId: baseAppBundleId)
         self.buildConfig = buildConfig
@@ -697,7 +711,7 @@ private func extractAccountManagerState(records: AccountRecordsView<TelegramAcco
             networkEngineFactory: RustNetworkEngineFactory()
         )
         
-        guard let appGroupUrl = maybeAppGroupUrl else {
+        guard let appGroupUrl = maybeAppGroupUrl ?? FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             self.mainWindow?.presentNative(UIAlertController(title: nil, message: "Error 2", preferredStyle: .alert))
             return true
         }
