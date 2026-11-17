@@ -113,23 +113,7 @@ private func ggMiniChatHeaderStatusIcon(
     guard let peer = peer, !ggMiniChatHidesEmojiStatus() else {
         return nil
     }
-    if let peerEmojiStatus = peer.emojiStatus {
-        let (fileId, particleColor): (Int64, UIColor?) = withExtendedLifetime(peerEmojiStatus) {
-            let fid = peerEmojiStatus.fileId
-            let col = peerEmojiStatus.color.flatMap { UIColor(rgb: UInt32(bitPattern: $0)) }
-            return (fid, col)
-        }
-        return (
-            .animation(
-                content: .customEmoji(fileId: fileId),
-                size: CGSize(width: 32.0, height: 32.0),
-                placeholderColor: theme.list.mediaPlaceholderColor,
-                themeColor: theme.list.itemAccentColor,
-                loopMode: .count(2)
-            ),
-            particleColor
-        )
-    } else if peer.isPremium && !PremiumConfiguration.with(appConfiguration: context.currentAppConfiguration.with { $0 }).isPremiumDisabled {
+    if peer.isPremium && !PremiumConfiguration.with(appConfiguration: context.currentAppConfiguration.with { $0 }).isPremiumDisabled {
         return (.premium(color: theme.list.itemAccentColor), nil)
     }
     return nil
