@@ -155,6 +155,14 @@ jobs:
             echo "==> No custom certificate secrets provided. Standard IPA produced."
           fi
 
+          echo "==> Creating HoldGram-Sideload.ipa (stripped PlugIns and Watch for clean ESign signing)..."
+          rm -rf /tmp/sideload_extract
+          mkdir -p /tmp/sideload_extract
+          unzip -q "$OUTPUT_PATH/HoldGram.ipa" -d /tmp/sideload_extract
+          rm -rf /tmp/sideload_extract/Payload/*.app/PlugIns /tmp/sideload_extract/Payload/*.app/Watch
+          (cd /tmp/sideload_extract && zip -qr "$SOURCE_DIR/$OUTPUT_PATH/HoldGram-Sideload.ipa" Payload)
+          rm -rf /tmp/sideload_extract
+
           ls -la "$OUTPUT_PATH"
         env:
           CERT_P12_BASE64: ${{ secrets.P12_BASE64 }}
@@ -165,7 +173,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: HoldGram-${{ env.APP_VERSION }}-Build-${{ env.BUILD_NUMBER }}
-          path: /Users/Shared/telegram-ios/build/artifacts/HoldGram.ipa
+          path: /Users/Shared/telegram-ios/build/artifacts/*.ipa
           if-no-files-found: error
 
       - name: Create GitHub Release
@@ -182,6 +190,6 @@ jobs:
             * Собрано автоматически через GitHub Actions.
             * Готово к установке через TrollStore, AltStore, Sideloadly или Scarlet.
           files: |
-            /Users/Shared/telegram-ios/build/artifacts/HoldGram.ipa
+            /Users/Shared/telegram-ios/build/artifacts/*.ipa
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

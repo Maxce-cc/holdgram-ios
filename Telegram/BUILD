@@ -446,6 +446,7 @@ plist_fragment(
             <array>
                 <string>ghostgram</string>
                 <string>gg</string>
+                <string>holdgram</string>
             </array>
         </dict>
         <dict>
