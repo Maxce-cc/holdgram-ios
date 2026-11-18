@@ -661,14 +661,14 @@ plist_fragment(
     """
 )
 
-# GHOST: the app (and its extensions) are shown as «Ghostgram»
+# GHOST: the app (and its extensions) are shown as «HoldGram»
 plist_fragment(
     name = "AppNameInfoPlist",
     extension = "plist",
     template =
     """
     <key>CFBundleDisplayName</key>
-    <string>Ghostgram</string> <!-- GHOST: app name -->
+    <string>HoldGram</string> <!-- GHOST: app name -->
     """
 )
 
@@ -1067,7 +1067,7 @@ plist_fragment(
     <key>CFBundleIdentifier</key>
     <string>{telegram_bundle_id}.Share</string>
     <key>CFBundleName</key>
-    <string>Ghostgram</string> <!-- GHOST: app name -->
+    <string>HoldGram</string> <!-- GHOST: app name -->
     <key>CFBundlePackageType</key>
     <string>XPC!</string>
     <key>NSExtension</key>
@@ -1172,7 +1172,7 @@ plist_fragment(
     <key>CFBundleIdentifier</key>
     <string>{telegram_bundle_id}.NotificationContent</string>
     <key>CFBundleName</key>
-    <string>Ghostgram</string> <!-- GHOST: app name -->
+    <string>HoldGram</string> <!-- GHOST: app name -->
     <key>CFBundlePackageType</key>
     <string>XPC!</string>
     <key>NSExtension</key>
@@ -1280,7 +1280,7 @@ plist_fragment(
     <key>CFBundleIdentifier</key>
     <string>{telegram_bundle_id}.Widget</string>
     <key>CFBundleName</key>
-    <string>Ghostgram</string> <!-- GHOST: app name -->
+    <string>HoldGram</string> <!-- GHOST: app name -->
     <key>CFBundlePackageType</key>
     <string>XPC!</string>
     <key>NSExtension</key>
@@ -1397,7 +1397,7 @@ plist_fragment(
     <key>CFBundleIdentifier</key>
     <string>{telegram_bundle_id}.SiriIntents</string>
     <key>CFBundleName</key>
-    <string>Ghostgram</string> <!-- GHOST: app name -->
+    <string>HoldGram</string> <!-- GHOST: app name -->
     <key>CFBundlePackageType</key>
     <string>XPC!</string>
     <key>NSExtension</key>
@@ -1566,7 +1566,7 @@ plist_fragment(
     <key>CFBundleIdentifier</key>
     <string>{telegram_bundle_id}.BroadcastUpload</string>
     <key>CFBundleName</key>
-    <string>Ghostgram</string> <!-- GHOST: app name -->
+    <string>HoldGram</string> <!-- GHOST: app name -->
     <key>CFBundlePackageType</key>
     <string>XPC!</string>
     <key>NSExtension</key>
@@ -1660,7 +1660,7 @@ plist_fragment(
     <key>CFBundleIdentifier</key>
     <string>{telegram_bundle_id}.NotificationService</string>
     <key>CFBundleName</key>
-    <string>Ghostgram</string> <!-- GHOST: app name -->
+    <string>HoldGram</string> <!-- GHOST: app name -->
     <key>CFBundlePackageType</key>
     <string>XPC!</string>
     <key>NSExtension</key>
@@ -1730,11 +1730,11 @@ plist_fragment(
     <key>CFBundleDevelopmentRegion</key>
     <string>en</string>
     <key>CFBundleDisplayName</key>
-    <string>Ghostgram</string> <!-- GHOST: app name -->
+    <string>HoldGram</string> <!-- GHOST: app name -->
     <key>CFBundleIdentifier</key>
     <string>{telegram_bundle_id}</string>
     <key>CFBundleName</key>
-    <string>Ghostgram</string> <!-- GHOST: app name -->
+    <string>HoldGram</string> <!-- GHOST: app name -->
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleSignature</key>
@@ -1796,13 +1796,13 @@ plist_fragment(
     <key>NSFaceIDUsageDescription</key>
     <string>You can use Face ID to unlock the app.</string>
     <key>NSLocationAlwaysUsageDescription</key>
-    <string>When you send your location to your friends, Ghostgram needs access to show them a map. You also need this to send locations from an Apple Watch.</string> <!-- GHOST: app name -->
+    <string>When you send your location to your friends, HoldGram needs access to show them a map. You also need this to send locations from an Apple Watch.</string> <!-- GHOST: app name -->
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>When you send your location to your friends, Ghostgram needs access to show them a map.</string> <!-- GHOST: app name -->
+    <string>When you send your location to your friends, HoldGram needs access to show them a map.</string> <!-- GHOST: app name -->
     <key>NSMicrophoneUsageDescription</key>
     <string>We need this so that you can record and share voice messages and videos with sound.</string>
     <key>NSMotionUsageDescription</key>
-    <string>When you send your location to your friends, Ghostgram needs access to show them a map.</string> <!-- GHOST: app name -->
+    <string>When you send your location to your friends, HoldGram needs access to show them a map.</string> <!-- GHOST: app name -->
     <key>NSPhotoLibraryAddUsageDescription</key>
     <string>We need this so that you can share photos and videos from your photo library.</string>
     <key>NSPhotoLibraryUsageDescription</key>
@@ -1984,7 +1984,7 @@ apple_prebuilt_watchos_application(
 
 ios_application(
     name = "Telegram",
-    bundle_name = "Ghostgram", # GHOST: Ghostgram.app with the Ghostgram executable, as in the old client
+    bundle_name = "HoldGram", # HoldGram.app with the HoldGram executable
     bundle_id = "{telegram_bundle_id}".format(
         telegram_bundle_id = telegram_bundle_id,
     ),
