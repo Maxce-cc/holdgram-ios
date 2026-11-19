@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import AsyncDisplayKit
 import Display
 import SwiftSignalKit
 import TelegramCore
@@ -374,7 +375,6 @@ public final class HoldGramPluginEditorController: ViewController {
             btn.setTitleColor(theme.list.itemAccentColor, for: .normal)
             btn.backgroundColor = theme.list.itemBlocksBackgroundColor
             btn.layer.cornerRadius = 8.0
-            btn.contentEdgeInsets = UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12)
             btn.addTarget(self, action: #selector(self.snippetPressed(_:)), for: .touchUpInside)
             self.snippetsStack.addArrangedSubview(btn)
         }
