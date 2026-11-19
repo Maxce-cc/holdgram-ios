@@ -18,18 +18,16 @@ public struct HoldGramPlugin: Codable, Equatable {
     public var author: String
     public var description: String
     public var version: String
-    public var icon: String
     public var code: String
     public var isBuiltIn: Bool
     public var isEnabled: Bool
 
-    public init(id: String, name: String, author: String, description: String, version: String, icon: String, code: String, isBuiltIn: Bool = false, isEnabled: Bool = false) {
+    public init(id: String, name: String, author: String, description: String, version: String, code: String, isBuiltIn: Bool = false, isEnabled: Bool = false) {
         self.id = id
         self.name = name
         self.author = author
         self.description = description
         self.version = version
-        self.icon = icon
         self.code = code
         self.isBuiltIn = isBuiltIn
         self.isEnabled = isEnabled
@@ -61,15 +59,14 @@ public final class HoldGramPluginManager {
             id: "autoTranslate",
             name: "Auto-Translate",
             author: "@holddgrm",
-            description: "Мгновенный перевод входящих и исходящих сообщений с любого языка в реальном времени.",
+            description: "Real-time incoming and outgoing message translation",
             version: "2.1",
-            icon: "🌐",
             code: """
             // HoldGram Auto-Translate Plugin
             HoldGram.onMessageReceive(function(msg) {
                 if (msg.lang && msg.lang !== 'ru') {
                     var translated = HoldGram.translate(msg.text, 'ru');
-                    HoldGram.log('[Auto-Translate] Translated from ' + msg.lang + ': ' + translated);
+                    HoldGram.log('[Auto-Translate] Translated: ' + translated);
                     return translated;
                 }
                 return msg.text;
@@ -81,9 +78,8 @@ public final class HoldGramPluginManager {
             id: "antiDelete",
             name: "Anti-Delete Vault",
             author: "@holdgram_team",
-            description: "Сохранение удаленных и отредактированных сообщений в локальный защищенный кэш.",
+            description: "Preserves deleted and edited messages in local secure cache",
             version: "1.4",
-            icon: "🛡",
             code: """
             // HoldGram Anti-Delete Vault Plugin
             HoldGram.onMessageDelete(function(msgId) {
@@ -98,17 +94,16 @@ public final class HoldGramPluginManager {
         ),
         HoldGramPlugin(
             id: "stealthMode",
-            name: "Stealth Mode Pro",
+            name: "Stealth Mode",
             author: "@stealth_dev",
-            description: "Скрытие статуса «печатает...», времени в сети и предотвращение отправки отчетов о прочтении.",
+            description: "Suppresses typing indicators and active presence status",
             version: "3.0",
-            icon: "👻",
             code: """
-            // HoldGram Stealth Mode Pro Plugin
+            // HoldGram Stealth Mode Plugin
             HoldGram.onActionSend(function(action) {
                 if (action.type === 'typing' || action.type === 'recording_voice') {
-                    HoldGram.log('[Stealth] Suppressed presence action: ' + action.type);
-                    return false; // drop action
+                    HoldGram.log('[Stealth] Suppressed action: ' + action.type);
+                    return false;
                 }
                 return true;
             });
@@ -117,15 +112,14 @@ public final class HoldGramPluginManager {
         ),
         HoldGramPlugin(
             id: "voiceTurbo",
-            name: "Voice-to-Text Turbo",
+            name: "Voice Transcription",
             author: "@transcribe_bot",
-            description: "Быстрое распознавание речи из голосовых сообщений и видеозаметок без Premium.",
+            description: "Offline fast speech-to-text recognition for audio and video",
             version: "1.8",
-            icon: "🎙",
             code: """
-            // HoldGram Voice-to-Text Turbo Plugin
+            // HoldGram Voice Transcription Plugin
             HoldGram.onVoiceReceive(function(voice) {
-                HoldGram.log('[VoiceTurbo] Transcribing audio duration: ' + voice.duration + 's');
+                HoldGram.log('[VoiceTurbo] Transcribing audio: ' + voice.duration + 's');
                 var text = HoldGram.transcribeOffline(voice.fileId);
                 HoldGram.attachSubtitle(voice.id, text);
             });
@@ -134,16 +128,15 @@ public final class HoldGramPluginManager {
         ),
         HoldGramPlugin(
             id: "mediaSaver",
-            name: "Media Locker Bypass",
+            name: "Protected Media Access",
             author: "@saver_mod",
-            description: "Разрешение сохранения защищенных фото, видео и самоуничтожающихся медиа из каналов.",
+            description: "Allows saving restricted and expiring media files",
             version: "2.0",
-            icon: "🔓",
             code: """
-            // HoldGram Media Locker Bypass Plugin
+            // HoldGram Protected Media Access Plugin
             HoldGram.modifyMediaRestrictions(function(media) {
                 if (media.isProtected || media.ttl > 0) {
-                    HoldGram.log('[MediaSaver] Unlocked protected media #' + media.id);
+                    HoldGram.log('[MediaSaver] Unlocked media #' + media.id);
                     media.allowSaveToGallery = true;
                     media.allowForward = true;
                 }
@@ -154,17 +147,16 @@ public final class HoldGramPluginManager {
         ),
         HoldGramPlugin(
             id: "cleanFeed",
-            name: "Clean Feed AdBlock",
+            name: "Feed Content Filter",
             author: "@cleaner",
-            description: "Фильтрация спонсорских постов, рекламы и спам-сообщений в ленте каналов.",
+            description: "Filters sponsored posts, promotional links, and spam in channels",
             version: "1.2",
-            icon: "🧹",
             code: """
-            // HoldGram Clean Feed AdBlock Plugin
+            // HoldGram Feed Content Filter Plugin
             HoldGram.onChannelPost(function(post) {
                 if (post.isSponsored || post.containsAdMarker) {
-                    HoldGram.log('[CleanFeed] Hidden sponsored post in channel #' + post.channelId);
-                    return null; // hide post
+                    HoldGram.log('[CleanFeed] Filtered post in channel #' + post.channelId);
+                    return null;
                 }
                 return post;
             });
@@ -173,17 +165,16 @@ public final class HoldGramPluginManager {
         ),
         HoldGramPlugin(
             id: "smartScheduler",
-            name: "Smart Scheduler",
+            name: "Smart Dispatcher",
             author: "@scheduler",
-            description: "Автоматическая отправка сообщений и автоответчик по правилам и триггерам.",
+            description: "Conditional auto-replies and scheduled dispatch rules",
             version: "1.0",
-            icon: "⏰",
             code: """
-            // HoldGram Smart Scheduler Plugin
+            // HoldGram Smart Dispatcher Plugin
             HoldGram.onMessageReceive(function(msg) {
                 if (HoldGram.isAutoReplyActive && msg.isPrivate) {
                     HoldGram.log('[Scheduler] Triggered auto-reply for peer #' + msg.peerId);
-                    HoldGram.sendMessage(msg.peerId, 'Сейчас не у телефона. Отвечу позже!');
+                    HoldGram.sendMessage(msg.peerId, 'Auto-reply message.');
                 }
             });
             """,
@@ -242,16 +233,16 @@ public final class HoldGramPluginManager {
 
     public func importPlugin(from jsonString: String) -> (success: Bool, message: String) {
         guard let data = jsonString.data(using: .utf8) else {
-            return (false, "Неверный формат текста")
+            return (false, "Invalid text format")
         }
         do {
             var plugin = try JSONDecoder().decode(HoldGramPlugin.self, from: data)
             plugin.isBuiltIn = false
             plugin.id = "custom_" + UUID().uuidString.prefix(8)
             self.addOrUpdatePlugin(plugin)
-            return (true, "Плагин «\(plugin.name)» успешно импортирован!")
+            return (true, plugin.name)
         } catch {
-            return (false, "Ошибка парсинга JSON плагина: \(error.localizedDescription)")
+            return (false, error.localizedDescription)
         }
     }
 }
@@ -281,13 +272,21 @@ public final class HoldGramPluginEditorController: ViewController {
     private let checkButton = UIButton(type: .system)
     private let sandboxButton = UIButton(type: .system)
 
+    private let snippets: [(title: String, code: String)] = [
+        ("onMessageSend", "\nHoldGram.onMessageSend(function(text) {\n    HoldGram.log('Sending: ' + text);\n    return text;\n});\n"),
+        ("onMessageReceive", "\nHoldGram.onMessageReceive(function(msg) {\n    HoldGram.log('Received: ' + msg.text);\n    return msg.text;\n});\n"),
+        ("modifyUI", "\nHoldGram.modifyUI(function(ui) {\n    ui.accentColor = '#007AFF';\n});\n"),
+        ("HoldGram.log", "\nHoldGram.log('Message');\n"),
+        ("HoldGram.toast", "\nHoldGram.toast('Action completed');\n")
+    ]
+
     public init(context: AccountContext, plugin: HoldGramPlugin? = nil) {
         self.context = context
         self.presentationData = context.sharedContext.currentPresentationData.with { $0 }
         self.editingPlugin = plugin
         super.init(navigationBarPresentationData: NavigationBarPresentationData(presentationData: self.presentationData))
-        self.title = plugin == nil ? "Создать плагин" : "Редактор плагина"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(self.savePressed))
+        self.title = plugin == nil ? GGStrings.Plugins.Editor.createTitle : GGStrings.Plugins.Editor.editTitle
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: self.presentationData.strings.Common_Save, style: .done, target: self, action: #selector(self.savePressed))
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -301,14 +300,6 @@ public final class HoldGramPluginEditorController: ViewController {
         self.setupViews()
         self.displayNodeDidLoad()
     }
-
-    private let snippets: [(title: String, code: String)] = [
-        ("+ onMessageSend", "\nHoldGram.onMessageSend(function(text) {\n    HoldGram.log('Sending: ' + text);\n    return text;\n});\n"),
-        ("+ onMessageReceive", "\nHoldGram.onMessageReceive(function(msg) {\n    HoldGram.log('Received: ' + msg.text);\n    return msg.text;\n});\n"),
-        ("+ modifyUI", "\nHoldGram.modifyUI(function(ui) {\n    ui.accentColor = '#007AFF';\n});\n"),
-        ("+ HoldGram.log", "\nHoldGram.log('Log message from plugin');\n"),
-        ("+ HoldGram.toast", "\nHoldGram.toast('Действие выполнено!');\n")
-    ]
 
     private func presentNativeController(_ controller: UIViewController) {
         guard let rootController = self.view.window?.rootViewController ?? self.navigationController else {
@@ -329,7 +320,7 @@ public final class HoldGramPluginEditorController: ViewController {
         self.displayNode.view.addSubview(self.scrollView)
 
         // Name Field
-        self.nameField.placeholder = "Название плагина (например: Auto-Reply)"
+        self.nameField.placeholder = GGStrings.Plugins.Editor.namePlaceholder
         self.nameField.text = self.editingPlugin?.name
         self.nameField.backgroundColor = theme.list.itemBlocksBackgroundColor
         self.nameField.textColor = theme.list.itemPrimaryTextColor
@@ -340,7 +331,7 @@ public final class HoldGramPluginEditorController: ViewController {
         self.scrollView.addSubview(self.nameField)
 
         // Description Field
-        self.descField.placeholder = "Описание и автор"
+        self.descField.placeholder = GGStrings.Plugins.Editor.descPlaceholder
         self.descField.text = self.editingPlugin?.description
         self.descField.backgroundColor = theme.list.itemBlocksBackgroundColor
         self.descField.textColor = theme.list.itemPrimaryTextColor
@@ -352,7 +343,7 @@ public final class HoldGramPluginEditorController: ViewController {
 
         // Code Editor
         self.codeTextView.backgroundColor = UIColor(white: 0.08, alpha: 1.0)
-        self.codeTextView.textColor = UIColor(red: 0.3, green: 0.95, blue: 0.5, alpha: 1.0)
+        self.codeTextView.textColor = UIColor(red: 0.35, green: 0.9, blue: 0.55, alpha: 1.0)
         self.codeTextView.font = UIFont.monospacedSystemFont(ofSize: 13.5, weight: .regular)
         self.codeTextView.layer.cornerRadius = 12.0
         self.codeTextView.autocapitalizationType = .none
@@ -389,7 +380,7 @@ public final class HoldGramPluginEditorController: ViewController {
         }
 
         // Action Buttons
-        self.checkButton.setTitle("⚡️ Проверить синтаксис", for: .normal)
+        self.checkButton.setTitle(GGStrings.Plugins.Editor.checkSyntax, for: .normal)
         self.checkButton.titleLabel?.font = Font.semibold(15.0)
         self.checkButton.setTitleColor(.white, for: .normal)
         self.checkButton.backgroundColor = UIColor(red: 0.15, green: 0.55, blue: 0.95, alpha: 1.0)
@@ -397,7 +388,7 @@ public final class HoldGramPluginEditorController: ViewController {
         self.checkButton.addTarget(self, action: #selector(self.checkSyntaxPressed), for: .touchUpInside)
         self.scrollView.addSubview(self.checkButton)
 
-        self.sandboxButton.setTitle("🧪 Тестировать в тест-плейсе", for: .normal)
+        self.sandboxButton.setTitle(GGStrings.Plugins.Editor.openSandbox, for: .normal)
         self.sandboxButton.titleLabel?.font = Font.semibold(15.0)
         self.sandboxButton.setTitleColor(.white, for: .normal)
         self.sandboxButton.backgroundColor = UIColor(red: 0.12, green: 0.72, blue: 0.45, alpha: 1.0)
@@ -470,11 +461,11 @@ public final class HoldGramPluginEditorController: ViewController {
         }
 
         let alert = UIAlertController(
-            title: isClean ? "Синтаксис корректен" : "Ошибка синтаксиса",
-            message: isClean ? "Все блоки скобок сбалансированы. Хуки HoldGram готовы к запуску!" : "Обнаружены несоответствия фигурных или круглых скобок в скрипте. Проверьте структуру кода.",
+            title: isClean ? GGStrings.Plugins.Editor.syntaxValidTitle : GGStrings.Plugins.Editor.syntaxErrorTitle,
+            message: isClean ? GGStrings.Plugins.Editor.syntaxValidMessage : GGStrings.Plugins.Editor.syntaxErrorMessage,
             preferredStyle: .alert
         )
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.addAction(UIAlertAction(title: self.presentationData.strings.Common_OK, style: .default))
         self.presentNativeController(alert)
     }
 
@@ -489,8 +480,8 @@ public final class HoldGramPluginEditorController: ViewController {
     @objc private func savePressed() {
         let name = (self.nameField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         if name.isEmpty {
-            let alert = UIAlertController(title: "Ошибка", message: "Укажите название плагина", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            let alert = UIAlertController(title: GGStrings.Plugins.Editor.syntaxErrorTitle, message: GGStrings.Plugins.Editor.nameRequired, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: self.presentationData.strings.Common_OK, style: .default))
             self.presentNativeController(alert)
             return
         }
@@ -502,10 +493,9 @@ public final class HoldGramPluginEditorController: ViewController {
         let plugin = HoldGramPlugin(
             id: id,
             name: name,
-            author: "Пользователь",
-            description: desc.isEmpty ? "Пользовательский скрипт HoldGram" : desc,
+            author: "User",
+            description: desc.isEmpty ? "HoldGram Script" : desc,
             version: "1.0",
-            icon: "🧩",
             code: code,
             isBuiltIn: false,
             isEnabled: true
@@ -514,11 +504,11 @@ public final class HoldGramPluginEditorController: ViewController {
         HoldGramPluginManager.shared.addOrUpdatePlugin(plugin)
 
         let alert = UIAlertController(
-            title: "Сохранено",
-            message: "Плагин «\(name)» успешно сохранен и активирован!",
+            title: GGStrings.Plugins.Editor.savedTitle,
+            message: GGStrings.Plugins.Editor.savedMessage(name: name),
             preferredStyle: .alert
         )
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+        alert.addAction(UIAlertAction(title: self.presentationData.strings.Common_OK, style: .default, handler: { [weak self] _ in
             if let nav = self?.navigationController as? NavigationController {
                 let _ = nav.popViewController(animated: true)
             }
@@ -562,7 +552,7 @@ public final class HoldGramPluginSandboxController: ViewController {
         self.presentationData = context.sharedContext.currentPresentationData.with { $0 }
         self.activeScript = activeScript
         super.init(navigationBarPresentationData: NavigationBarPresentationData(presentationData: self.presentationData))
-        self.title = "Тест-плейс плагинов"
+        self.title = GGStrings.Plugins.Sandbox.title
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -576,11 +566,11 @@ public final class HoldGramPluginSandboxController: ViewController {
         self.setupViews()
         self.displayNodeDidLoad()
 
-        self.appendLog("HoldGram Plugin Sandbox Engine v1.1.0 initialized.")
+        self.appendLog("HoldGram Plugin Sandbox Engine initialized.")
         if let script = self.activeScript, !script.isEmpty {
-            self.appendLog("Loaded active editor script (\(script.count) bytes).")
+            self.appendLog("Loaded active script (\(script.count) bytes).")
         }
-        self.appendLog("All hooks listening: onMessageReceive, onMessageSend, modifyUI, onMessageDelete.")
+        self.appendLog("Hooks ready: onMessageReceive, onMessageSend, modifyUI, onMessageDelete.")
     }
 
     private func setupViews() {
@@ -594,7 +584,7 @@ public final class HoldGramPluginSandboxController: ViewController {
         self.chatCardView.layer.cornerRadius = 14.0
         self.scrollView.addSubview(self.chatCardView)
 
-        self.chatTitleLabel.text = "💬 Пространство симуляции чата"
+        self.chatTitleLabel.text = GGStrings.Plugins.Sandbox.simulationTitle
         self.chatTitleLabel.font = Font.semibold(14.0)
         self.chatTitleLabel.textColor = theme.list.itemSecondaryTextColor
         self.chatCardView.addSubview(self.chatTitleLabel)
@@ -602,7 +592,7 @@ public final class HoldGramPluginSandboxController: ViewController {
         // Incoming bubble
         self.incomingBubble.backgroundColor = UIColor(white: 0.2, alpha: 0.3)
         self.incomingBubble.layer.cornerRadius = 10.0
-        self.incomingLabel.text = "Собеседник: Привет! Это тестовое входящее сообщение."
+        self.incomingLabel.text = GGStrings.Plugins.Sandbox.incomingSample
         self.incomingLabel.font = Font.regular(14.0)
         self.incomingLabel.textColor = theme.list.itemPrimaryTextColor
         self.incomingLabel.numberOfLines = 0
@@ -612,7 +602,7 @@ public final class HoldGramPluginSandboxController: ViewController {
         // Outgoing bubble
         self.outgoingBubble.backgroundColor = UIColor(red: 0.15, green: 0.55, blue: 0.95, alpha: 0.25)
         self.outgoingBubble.layer.cornerRadius = 10.0
-        self.outgoingLabel.text = "Вы: Проверяю работу хуков HoldGram в тест-плейсе!"
+        self.outgoingLabel.text = GGStrings.Plugins.Sandbox.outgoingSample
         self.outgoingLabel.font = Font.regular(14.0)
         self.outgoingLabel.textColor = theme.list.itemPrimaryTextColor
         self.outgoingLabel.numberOfLines = 0
@@ -622,7 +612,7 @@ public final class HoldGramPluginSandboxController: ViewController {
         // Result bubble
         self.resultBubble.backgroundColor = UIColor(red: 0.12, green: 0.72, blue: 0.45, alpha: 0.2)
         self.resultBubble.layer.cornerRadius = 10.0
-        self.resultLabel.text = "⚡️ Хук плагина: Готов к перехвату событий"
+        self.resultLabel.text = GGStrings.Plugins.Sandbox.readyStatus
         self.resultLabel.font = Font.semibold(13.0)
         self.resultLabel.textColor = UIColor(red: 0.12, green: 0.8, blue: 0.5, alpha: 1.0)
         self.resultLabel.numberOfLines = 0
@@ -630,16 +620,16 @@ public final class HoldGramPluginSandboxController: ViewController {
         self.chatCardView.addSubview(self.resultBubble)
 
         // Event Buttons Section
-        self.actionsHeaderLabel.text = "СИМУЛЯЦИЯ СОБЫТИЙ"
+        self.actionsHeaderLabel.text = GGStrings.Plugins.Sandbox.actionsHeader
         self.actionsHeaderLabel.font = Font.regular(12.0)
         self.actionsHeaderLabel.textColor = theme.list.sectionHeaderTextColor
         self.scrollView.addSubview(self.actionsHeaderLabel)
 
         let buttons = [
-            (self.buttonIncoming, "📩 Входящее", #selector(self.simulateIncomingPressed)),
-            (self.buttonOutgoing, "📤 Исходящее", #selector(self.simulateOutgoingPressed)),
-            (self.buttonUI, "🎨 Хук UI", #selector(self.simulateUIPressed)),
-            (self.buttonDelete, "🗑 Удаление", #selector(self.simulateDeletePressed))
+            (self.buttonIncoming, GGStrings.Plugins.Sandbox.btnIncoming, #selector(self.simulateIncomingPressed)),
+            (self.buttonOutgoing, GGStrings.Plugins.Sandbox.btnOutgoing, #selector(self.simulateOutgoingPressed)),
+            (self.buttonUI, GGStrings.Plugins.Sandbox.btnUI, #selector(self.simulateUIPressed)),
+            (self.buttonDelete, GGStrings.Plugins.Sandbox.btnDelete, #selector(self.simulateDeletePressed))
         ]
 
         for (btn, text, selector) in buttons {
@@ -653,7 +643,7 @@ public final class HoldGramPluginSandboxController: ViewController {
         }
 
         // Console Section
-        self.consoleHeaderLabel.text = "● LIVE CONSOLE & LOGS"
+        self.consoleHeaderLabel.text = GGStrings.Plugins.Sandbox.consoleHeader
         self.consoleHeaderLabel.font = Font.semibold(12.0)
         self.consoleHeaderLabel.textColor = UIColor(red: 0.2, green: 0.85, blue: 0.4, alpha: 1.0)
         self.scrollView.addSubview(self.consoleHeaderLabel)
@@ -666,13 +656,13 @@ public final class HoldGramPluginSandboxController: ViewController {
         self.consoleTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         self.scrollView.addSubview(self.consoleTextView)
 
-        self.clearConsoleButton.setTitle("Очистить консоль", for: .normal)
+        self.clearConsoleButton.setTitle(GGStrings.Plugins.Sandbox.clearConsole, for: .normal)
         self.clearConsoleButton.titleLabel?.font = Font.regular(14.0)
         self.clearConsoleButton.setTitleColor(theme.list.itemSecondaryTextColor, for: .normal)
         self.clearConsoleButton.addTarget(self, action: #selector(self.clearConsolePressed), for: .touchUpInside)
         self.scrollView.addSubview(self.clearConsoleButton)
 
-        self.resetEnvButton.setTitle("Сбросить окружение", for: .normal)
+        self.resetEnvButton.setTitle(GGStrings.Plugins.Sandbox.resetEnv, for: .normal)
         self.resetEnvButton.titleLabel?.font = Font.regular(14.0)
         self.resetEnvButton.setTitleColor(theme.list.itemDestructiveColor, for: .normal)
         self.resetEnvButton.addTarget(self, action: #selector(self.resetEnvPressed), for: .touchUpInside)
@@ -744,48 +734,46 @@ public final class HoldGramPluginSandboxController: ViewController {
     }
 
     @objc private func simulateIncomingPressed() {
-        self.appendLog(">> Triggered event: onMessageReceive")
-        self.appendLog("   Payload: { peerId: 1002, text: \"Привет! Это тестовое входящее сообщение.\" }")
+        self.appendLog(">> Event: onMessageReceive")
+        self.appendLog("   Payload: { peerId: 1002, text: \"Hello! Test message.\" }")
         self.appendLog("   Executing active plugins...")
-        self.appendLog("   [Auto-Translate] Text verified. Language: ru. No translation needed.")
-        self.appendLog("<< Hook completed in 0.18ms")
+        self.appendLog("   [Auto-Translate] Text processed.")
+        self.appendLog("<< Hook completed (0.18ms)")
 
-        self.resultLabel.text = "📩 Входящее обработано: Сообщение принято"
+        self.resultLabel.text = "onMessageReceive: Message processed"
         self.resultBubble.backgroundColor = UIColor(red: 0.15, green: 0.55, blue: 0.95, alpha: 0.2)
         self.resultLabel.textColor = UIColor(red: 0.2, green: 0.6, blue: 1.0, alpha: 1.0)
     }
 
     @objc private func simulateOutgoingPressed() {
-        self.appendLog(">> Triggered event: onMessageSend")
-        self.appendLog("   Payload: { to: 1002, text: \"Проверяю работу хуков HoldGram в тест-плейсе!\" }")
-        self.appendLog("   [Stealth Pro] Typing presence suppressed.")
-        self.appendLog("   Hook onMessageSend returned sanitized payload.")
-        self.appendLog("<< Outgoing message dispatched (0.24ms)")
+        self.appendLog(">> Event: onMessageSend")
+        self.appendLog("   Payload: { to: 1002, text: \"Sending message.\" }")
+        self.appendLog("   [Stealth] Presence action suppressed.")
+        self.appendLog("<< Hook completed (0.24ms)")
 
-        self.resultLabel.text = "📤 Исходящее отправлено: Хук успешно применен"
+        self.resultLabel.text = "onMessageSend: Message dispatched"
         self.resultBubble.backgroundColor = UIColor(red: 0.12, green: 0.72, blue: 0.45, alpha: 0.2)
         self.resultLabel.textColor = UIColor(red: 0.12, green: 0.8, blue: 0.5, alpha: 1.0)
     }
 
     @objc private func simulateUIPressed() {
-        self.appendLog(">> Triggered event: modifyUI")
-        self.appendLog("   Inspecting theme components and custom layout...")
-        self.appendLog("   [UI Hook] Applied custom accent tint: #007AFF, badges styled.")
+        self.appendLog(">> Event: modifyUI")
+        self.appendLog("   Inspecting active theme and layout...")
+        self.appendLog("   [UI Hook] Applied accent styling.")
         self.appendLog("<< UI transform complete (0.31ms)")
 
-        self.resultLabel.text = "🎨 UI Хук: Стили интерфейса успешно обновлены"
+        self.resultLabel.text = "modifyUI: Interface layout updated"
         self.resultBubble.backgroundColor = UIColor(red: 0.6, green: 0.2, blue: 0.9, alpha: 0.2)
         self.resultLabel.textColor = UIColor(red: 0.7, green: 0.3, blue: 1.0, alpha: 1.0)
     }
 
     @objc private func simulateDeletePressed() {
-        self.appendLog(">> Triggered event: onMessageDelete")
+        self.appendLog(">> Event: onMessageDelete")
         self.appendLog("   Target message ID: #9841")
-        self.appendLog("   [Anti-Delete Vault] Snapshot captured and stored to memory cache.")
-        self.appendLog("   Status marked: [DELETED_PRESERVED]")
-        self.appendLog("<< Preserved deleted message in vault (0.12ms)")
+        self.appendLog("   [Anti-Delete Vault] Message snapshot captured into local cache.")
+        self.appendLog("<< Stored in vault (0.12ms)")
 
-        self.resultLabel.text = "🛡 Anti-Delete: Удаленное сообщение сохранено в хранилище"
+        self.resultLabel.text = "onMessageDelete: Message preserved"
         self.resultBubble.backgroundColor = UIColor(red: 0.9, green: 0.4, blue: 0.1, alpha: 0.2)
         self.resultLabel.textColor = UIColor(red: 1.0, green: 0.5, blue: 0.1, alpha: 1.0)
     }
@@ -798,7 +786,7 @@ public final class HoldGramPluginSandboxController: ViewController {
 
     @objc private func resetEnvPressed() {
         self.logs.removeAll()
-        self.resultLabel.text = "⚡️ Окружение сброшено: Готово к новым тестам"
+        self.resultLabel.text = GGStrings.Plugins.Sandbox.readyStatus
         self.resultBubble.backgroundColor = UIColor(white: 0.2, alpha: 0.3)
         self.resultLabel.textColor = self.presentationData.theme.list.itemPrimaryTextColor
         self.appendLog("Environment reset to initial state.")
@@ -811,72 +799,72 @@ private func ggPromptPublishPlugin(menuContext: GGMenuContext) {
     let customPlugins = HoldGramPluginManager.shared.allCustomPlugins()
     if customPlugins.isEmpty {
         let alert = UIAlertController(
-            title: "Форум плагинов HoldGram",
-            message: "У вас пока нет созданных плагинов. Откройте «Редактор плагинов», напишите свой скрипт, а затем опубликуйте его на форум сообщества!",
+            title: GGStrings.Plugins.Forum.publishEmptyTitle,
+            message: GGStrings.Plugins.Forum.publishEmptyMessage,
             preferredStyle: .alert
         )
-        alert.addAction(UIAlertAction(title: "Открыть редактор", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: GGStrings.Plugins.Tools.editor, style: .default, handler: { _ in
             menuContext.push(HoldGramPluginEditorController(context: menuContext.context))
         }))
-        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+        alert.addAction(UIAlertAction(title: menuContext.presentationData.strings.Common_Cancel, style: .cancel))
         menuContext.presentNative(alert)
         return
     }
 
     let sheet = UIAlertController(
-        title: "Опубликовать плагин на форум",
-        message: "Выберите плагин для отправки в каталог сообщества HoldGram (@holddgrm):",
+        title: GGStrings.Plugins.Forum.publishSheetTitle,
+        message: GGStrings.Plugins.Forum.publishSheetMessage,
         preferredStyle: .actionSheet
     )
 
     for p in customPlugins {
-        sheet.addAction(UIAlertAction(title: "\(p.icon) \(p.name) (v\(p.version))", style: .default, handler: { _ in
+        sheet.addAction(UIAlertAction(title: "\(p.name) (v\(p.version))", style: .default, handler: { _ in
             let confirm = UIAlertController(
-                title: "Публикация «\(p.name)»",
-                message: "Плагин будет проверен и станет доступен всем пользователям HoldGram в каталоге форума.\n\nАвтор: \(p.author)\nВерсия: \(p.version)",
+                title: GGStrings.Plugins.Forum.publishConfirmTitle(name: p.name),
+                message: GGStrings.Plugins.Forum.publishConfirmMessage(author: p.author, version: p.version),
                 preferredStyle: .alert
             )
-            confirm.addAction(UIAlertAction(title: "Опубликовать", style: .default, handler: { _ in
+            confirm.addAction(UIAlertAction(title: GGStrings.Plugins.Forum.publish, style: .default, handler: { _ in
                 let done = UIAlertController(
-                    title: "Успешно отправлено! 🎉",
-                    message: "Плагин «\(p.name)» успешно загружен на форум HoldGram. Заявка передана модераторам каталога.",
+                    title: GGStrings.Plugins.Forum.publishSuccessTitle,
+                    message: GGStrings.Plugins.Forum.publishSuccessMessage(name: p.name),
                     preferredStyle: .alert
                 )
-                done.addAction(UIAlertAction(title: "Отлично", style: .default))
+                done.addAction(UIAlertAction(title: menuContext.presentationData.strings.Common_OK, style: .default))
                 menuContext.presentNative(done)
             }))
-            confirm.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+            confirm.addAction(UIAlertAction(title: menuContext.presentationData.strings.Common_Cancel, style: .cancel))
             menuContext.presentNative(confirm)
         }))
     }
 
-    sheet.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+    sheet.addAction(UIAlertAction(title: menuContext.presentationData.strings.Common_Cancel, style: .cancel))
     menuContext.presentNative(sheet)
 }
 
 private func ggPromptImportPlugin(menuContext: GGMenuContext) {
     let alert = UIAlertController(
-        title: "Импорт плагина",
-        message: "Вставьте JSON-код или манифест плагина, полученный на форуме HoldGram:",
+        title: GGStrings.Plugins.Forum.importTitle,
+        message: GGStrings.Plugins.Forum.importMessage,
         preferredStyle: .alert
     )
     alert.addTextField { field in
-        field.placeholder = "{\"name\": \"MyPlugin\", \"code\": ...}"
+        field.placeholder = GGStrings.Plugins.Forum.importPlaceholder
     }
-    alert.addAction(UIAlertAction(title: "Импортировать", style: .default, handler: { _ in
+    alert.addAction(UIAlertAction(title: GGStrings.Plugins.Forum.import, style: .default, handler: { _ in
         guard let text = alert.textFields?.first?.text, !text.isEmpty else {
             return
         }
         let result = HoldGramPluginManager.shared.importPlugin(from: text)
         let resAlert = UIAlertController(
-            title: result.success ? "Успех" : "Ошибка импорта",
-            message: result.message,
+            title: result.success ? GGStrings.Plugins.Editor.savedTitle : GGStrings.Plugins.Editor.syntaxErrorTitle,
+            message: result.success ? GGStrings.Plugins.Editor.savedMessage(name: result.message) : result.message,
             preferredStyle: .alert
         )
-        resAlert.addAction(UIAlertAction(title: "OK", style: .default))
+        resAlert.addAction(UIAlertAction(title: menuContext.presentationData.strings.Common_OK, style: .default))
         menuContext.presentNative(resAlert)
     }))
-    alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+    alert.addAction(UIAlertAction(title: menuContext.presentationData.strings.Common_Cancel, style: .cancel))
     menuContext.presentNative(alert)
 }
 
@@ -888,15 +876,15 @@ public func ggRegisterPluginsRows() {
         id: .pluginsTools,
         screen: .tab(.morePlugins),
         order: 100,
-        header: { "Инструменты разработки" }
+        header: { GGStrings.Plugins.Section.tools }
     ))
 
     GGMenuRegistry.register(GGMenuRow(
         id: "plugins.editor",
         section: .pluginsTools,
         order: 100,
-        title: { "Редактор плагинов" },
-        subtitle: { "Создание пользовательских скриптов и сниппетов" },
+        title: { GGStrings.Plugins.Tools.editor },
+        subtitle: { GGStrings.Plugins.Tools.editorInfo },
         icon: .bundle("Chat/Context Menu/Customize"),
         kind: .action({ menuContext in
             menuContext.push(HoldGramPluginEditorController(context: menuContext.context))
@@ -907,8 +895,8 @@ public func ggRegisterPluginsRows() {
         id: "plugins.sandbox",
         section: .pluginsTools,
         order: 200,
-        title: { "Тест-плейс (Песочница)" },
-        subtitle: { "Интерактивная среда и терминал для отладки хуков" },
+        title: { GGStrings.Plugins.Tools.sandbox },
+        subtitle: { GGStrings.Plugins.Tools.sandboxInfo },
         icon: .bundle("Chat/Context Menu/Play"),
         kind: .action({ menuContext in
             menuContext.push(HoldGramPluginSandboxController(context: menuContext.context))
@@ -920,16 +908,16 @@ public func ggRegisterPluginsRows() {
         id: .pluginsForum,
         screen: .tab(.morePlugins),
         order: 200,
-        header: { "Форум и обмен плагинами" },
-        footer: { _ in "Каталог и форум плагинов сообщества HoldGram. Публикуйте свои скрипты или импортируйте наработки других пользователей." }
+        header: { GGStrings.Plugins.Section.forum },
+        footer: { _ in GGStrings.Plugins.Forum.footer }
     ))
 
     GGMenuRegistry.register(GGMenuRow(
         id: "plugins.publish",
         section: .pluginsForum,
         order: 100,
-        title: { "Опубликовать свой плагин на форум" },
-        subtitle: { "Отправить разработку в общий каталог сообщества" },
+        title: { GGStrings.Plugins.Forum.publish },
+        subtitle: { GGStrings.Plugins.Forum.publishInfo },
         icon: .bundle("Chat/Context Menu/Share"),
         kind: .action({ menuContext in
             ggPromptPublishPlugin(menuContext: menuContext)
@@ -940,8 +928,8 @@ public func ggRegisterPluginsRows() {
         id: "plugins.import",
         section: .pluginsForum,
         order: 200,
-        title: { "Импортировать плагин" },
-        subtitle: { "Установка из JSON-манифеста или ссылки форума" },
+        title: { GGStrings.Plugins.Forum.import },
+        subtitle: { GGStrings.Plugins.Forum.importInfo },
         icon: .bundle("Chat/Context Menu/Download"),
         kind: .action({ menuContext in
             ggPromptImportPlugin(menuContext: menuContext)
@@ -953,16 +941,16 @@ public func ggRegisterPluginsRows() {
         id: .pluginsCommunity,
         screen: .tab(.morePlugins),
         order: 300,
-        header: { "Каталог готовых плагинов" },
-        footer: { _ in "Проверенные модули расширения от команды HoldGram и разработчиков сообщества." }
+        header: { GGStrings.Plugins.Section.catalog },
+        footer: { _ in GGStrings.Plugins.Catalog.footer }
     ))
 
     GGMenuRegistry.register(GGMenuRow(
         id: "plugins.community.autoTranslate",
         section: .pluginsCommunity,
         order: 100,
-        title: { "Auto-Translate" },
-        subtitle: { "Автоматический перевод входящих и исходящих сообщений на лету" },
+        title: { GGStrings.Plugins.Builtin.AutoTranslate.title },
+        subtitle: { GGStrings.Plugins.Builtin.AutoTranslate.info },
         kind: .toggle(.global(HoldGramPluginSettings.autoTranslate))
     ))
 
@@ -970,8 +958,8 @@ public func ggRegisterPluginsRows() {
         id: "plugins.community.antiDelete",
         section: .pluginsCommunity,
         order: 200,
-        title: { "Anti-Delete Vault" },
-        subtitle: { "Сохранение удаленных и отредактированных сообщений в защищенный кэш" },
+        title: { GGStrings.Plugins.Builtin.AntiDelete.title },
+        subtitle: { GGStrings.Plugins.Builtin.AntiDelete.info },
         kind: .toggle(.global(HoldGramPluginSettings.antiDelete))
     ))
 
@@ -979,8 +967,8 @@ public func ggRegisterPluginsRows() {
         id: "plugins.community.stealthMode",
         section: .pluginsCommunity,
         order: 300,
-        title: { "Stealth Mode Pro" },
-        subtitle: { "Скрытие статуса «печатает...» и времени активности" },
+        title: { GGStrings.Plugins.Builtin.StealthMode.title },
+        subtitle: { GGStrings.Plugins.Builtin.StealthMode.info },
         kind: .toggle(.global(HoldGramPluginSettings.stealthMode))
     ))
 
@@ -988,8 +976,8 @@ public func ggRegisterPluginsRows() {
         id: "plugins.community.voiceTurbo",
         section: .pluginsCommunity,
         order: 400,
-        title: { "Voice-to-Text Turbo" },
-        subtitle: { "Быстрое распознавание речи из голосовых и видеосообщений" },
+        title: { GGStrings.Plugins.Builtin.VoiceTurbo.title },
+        subtitle: { GGStrings.Plugins.Builtin.VoiceTurbo.info },
         kind: .toggle(.global(HoldGramPluginSettings.voiceTurbo))
     ))
 
@@ -997,8 +985,8 @@ public func ggRegisterPluginsRows() {
         id: "plugins.community.mediaSaver",
         section: .pluginsCommunity,
         order: 500,
-        title: { "Media Locker Bypass" },
-        subtitle: { "Обход ограничений на сохранение защищенных медиа и фото" },
+        title: { GGStrings.Plugins.Builtin.MediaSaver.title },
+        subtitle: { GGStrings.Plugins.Builtin.MediaSaver.info },
         kind: .toggle(.global(HoldGramPluginSettings.mediaSaver))
     ))
 
@@ -1006,8 +994,8 @@ public func ggRegisterPluginsRows() {
         id: "plugins.community.cleanFeed",
         section: .pluginsCommunity,
         order: 600,
-        title: { "Clean Feed AdBlock" },
-        subtitle: { "Скрытие рекламных постов и спама в каналах" },
+        title: { GGStrings.Plugins.Builtin.CleanFeed.title },
+        subtitle: { GGStrings.Plugins.Builtin.CleanFeed.info },
         kind: .toggle(.global(HoldGramPluginSettings.cleanFeed))
     ))
 
@@ -1015,8 +1003,8 @@ public func ggRegisterPluginsRows() {
         id: "plugins.community.smartScheduler",
         section: .pluginsCommunity,
         order: 700,
-        title: { "Smart Scheduler" },
-        subtitle: { "Автоответчик и отправка сообщений по условиям" },
+        title: { GGStrings.Plugins.Builtin.SmartScheduler.title },
+        subtitle: { GGStrings.Plugins.Builtin.SmartScheduler.info },
         kind: .toggle(.global(HoldGramPluginSettings.smartScheduler))
     ))
 
@@ -1025,53 +1013,53 @@ public func ggRegisterPluginsRows() {
         id: .pluginsUser,
         screen: .tab(.morePlugins),
         order: 400,
-        header: { "Мои плагины" },
-        footer: { _ in "Пользовательские плагины, созданные вами в редакторе или импортированные из файлов." }
+        header: { GGStrings.Plugins.Section.user },
+        footer: { _ in GGStrings.Plugins.User.footer }
     ))
 
     GGMenuRegistry.register(GGMenuRow(
         id: "plugins.user.manage",
         section: .pluginsUser,
         order: 100,
-        title: { "Управление своими плагинами" },
+        title: { GGStrings.Plugins.User.manage },
         subtitle: {
             let count = HoldGramPluginManager.shared.allCustomPlugins().count
-            return count == 0 ? "У вас пока нет пользовательских плагинов" : "Установлено плагинов: \(count)"
+            return count == 0 ? GGStrings.Plugins.User.empty : GGStrings.Plugins.User.count(count: count)
         },
         icon: .bundle("Chat/Context Menu/Tag"),
         kind: .action({ menuContext in
             let custom = HoldGramPluginManager.shared.allCustomPlugins()
             if custom.isEmpty {
-                let alert = UIAlertController(title: "Мои плагины", message: "У вас пока нет созданных плагинов. Нажмите «Редактор плагинов», чтобы создать свой первый плагин!", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Создать плагин", style: .default, handler: { _ in
+                let alert = UIAlertController(title: GGStrings.Plugins.User.manage, message: GGStrings.Plugins.User.empty, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: GGStrings.Plugins.Tools.editor, style: .default, handler: { _ in
                     menuContext.push(HoldGramPluginEditorController(context: menuContext.context))
                 }))
-                alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                alert.addAction(UIAlertAction(title: menuContext.presentationData.strings.Common_OK, style: .cancel))
                 menuContext.presentNative(alert)
             } else {
-                let sheet = UIAlertController(title: "Мои плагины", message: "Выберите плагин для редактирования или экспорта:", preferredStyle: .actionSheet)
+                let sheet = UIAlertController(title: GGStrings.Plugins.User.manage, message: nil, preferredStyle: .actionSheet)
                 for p in custom {
                     sheet.addAction(UIAlertAction(title: "\(p.name) (v\(p.version))", style: .default, handler: { _ in
                         let opt = UIAlertController(title: p.name, message: p.description, preferredStyle: .actionSheet)
-                        opt.addAction(UIAlertAction(title: "Редактировать в редакторе", style: .default, handler: { _ in
+                        opt.addAction(UIAlertAction(title: GGStrings.Plugins.Editor.editTitle, style: .default, handler: { _ in
                             menuContext.push(HoldGramPluginEditorController(context: menuContext.context, plugin: p))
                         }))
-                        opt.addAction(UIAlertAction(title: "Экспортировать JSON", style: .default, handler: { _ in
+                        opt.addAction(UIAlertAction(title: "Export JSON", style: .default, handler: { _ in
                             if let json = HoldGramPluginManager.shared.exportPluginJSON(p) {
                                 UIPasteboard.general.string = json
-                                let copied = UIAlertController(title: "Скопировано", message: "JSON-код плагина «\(p.name)» скопирован в буфер обмена.", preferredStyle: .alert)
-                                copied.addAction(UIAlertAction(title: "OK", style: .default))
+                                let copied = UIAlertController(title: GGStrings.Plugins.Editor.savedTitle, message: "JSON copied to clipboard", preferredStyle: .alert)
+                                copied.addAction(UIAlertAction(title: menuContext.presentationData.strings.Common_OK, style: .default))
                                 menuContext.presentNative(copied)
                             }
                         }))
-                        opt.addAction(UIAlertAction(title: "Удалить", style: .destructive, handler: { _ in
+                        opt.addAction(UIAlertAction(title: menuContext.presentationData.strings.Common_Delete, style: .destructive, handler: { _ in
                             HoldGramPluginManager.shared.removePlugin(id: p.id)
                         }))
-                        opt.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+                        opt.addAction(UIAlertAction(title: menuContext.presentationData.strings.Common_Cancel, style: .cancel))
                         menuContext.presentNative(opt)
                     }))
                 }
-                sheet.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+                sheet.addAction(UIAlertAction(title: menuContext.presentationData.strings.Common_Cancel, style: .cancel))
                 menuContext.presentNative(sheet)
             }
         })

@@ -173,12 +173,12 @@ private func ggSkeletonTabs() -> [GGSkeletonTab] {
         GGSkeletonTab(id: .securityPasscode, section: .securityTabs, order: 300, title: { GGStrings.Menu.Tab.Security.passcode }, info: { GGStrings.Menu.Tab.Security.passcodeInfo }, icon: .bundle("Chat/Context Menu/FaceId"), emoji: "🔢"),
         GGSkeletonTab(id: .securityAccounts, section: .securityTabs, order: 400, title: { GGStrings.Menu.Tab.Security.accounts }, info: { GGStrings.Menu.Tab.Security.accountsInfo }, icon: .bundle("Chat/Context Menu/AddUser"), emoji: "👤"),
 
-        GGSkeletonTab(id: .morePlugins, section: .moreTabs, order: 50, title: { "Плагины" }, info: { "Каталог, редактор и тест-плейс плагинов" }, icon: .bundle("Chat/Context Menu/Customize"), emoji: "🧩"),
+        GGSkeletonTab(id: .morePlugins, section: .moreTabs, order: 50, title: { GGStrings.Plugins.tabTitle }, info: { GGStrings.Plugins.tabInfo }, icon: .bundle("Chat/Context Menu/Customize"), emoji: ""),
         GGSkeletonTab(id: .moreVpn, section: .moreTabs, order: 100, title: { GGStrings.Menu.Tab.More.vpn }, info: { GGStrings.Menu.Tab.More.vpnInfo }, icon: .bundle("Chat/Context Menu/Globe"), emoji: "🛡"),
         GGSkeletonTab(id: .moreNickBadge, section: .moreTabs, order: 200, title: { GGStrings.Menu.Tab.More.nickBadge }, info: { GGStrings.Menu.Tab.More.nickBadgeInfo }, icon: .bundle("Chat/Context Menu/Tag"), emoji: "🏷"),
         GGSkeletonTab(id: .moreFakeGifts, section: .moreTabs, order: 300, title: { GGStrings.Menu.Tab.More.fakeGifts }, info: { GGStrings.Menu.Tab.More.fakeGiftsInfo }, icon: .bundle("Chat/Context Menu/Gift"), emoji: "🎁"),
         GGSkeletonTab(id: .moreGhostgramSettings, section: .moreTabs, order: 400, title: { GGStrings.Menu.Tab.More.ghostgramSettings }, info: { GGStrings.Menu.Tab.More.ghostgramSettingsInfo }, icon: .bundle("Chat/Context Menu/Settings"), emoji: "⚙️"),
-        GGSkeletonTab(id: .moreAbout, section: .moreTabs, order: 500, title: { GGStrings.Menu.Tab.More.about }, info: { GGStrings.Menu.Tab.More.aboutInfo }, icon: .bundle("Chat/Context Menu/Info"), emoji: "⚡️")
+        GGSkeletonTab(id: .moreAbout, section: .moreTabs, order: 500, title: { GGStrings.Menu.Tab.More.about }, info: { GGStrings.Menu.Tab.More.aboutInfo }, icon: .bundle("Chat/Context Menu/Info"), emoji: "")
     ]
 }
 
@@ -202,12 +202,13 @@ func ggRegisterMenuSkeleton() {
     for tab in ggSkeletonTabs() {
         let emoji = tab.emoji
         let info = tab.info
+        let topView: GGMenuTopView? = emoji.isEmpty ? nil : GGMenuTopView(content: .emoji(emoji), text: info)
         GGMenuRegistry.register(
             tab: GGMenuTabDescriptor(
                 id: tab.id,
                 parent: GGMenuStorage.shared.sectionsById[tab.section]?.screen ?? .root,
                 title: tab.title,
-                topView: GGMenuTopView(content: .emoji(emoji), text: info),
+                topView: topView,
                 searchKeywords: { [info()] }
             ),
             linkIn: tab.section,

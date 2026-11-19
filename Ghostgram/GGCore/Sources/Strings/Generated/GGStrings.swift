@@ -10060,6 +10060,393 @@ public enum GGStrings {
         }
     }
 
+    public enum Plugins {
+        /// Development tools, sandbox environment, and community extensions
+        public static var tabInfo: Swift.String {
+            return GGLocalization.shared.string("plugins.tabInfo")
+        }
+
+        /// Plugins
+        public static var tabTitle: Swift.String {
+            return GGLocalization.shared.string("plugins.tabTitle")
+        }
+
+        public enum Builtin {
+            public enum AntiDelete {
+                /// Preserves deleted and edited messages in local secure cache
+                public static var info: Swift.String {
+                    return GGLocalization.shared.string("plugins.builtin.antiDelete.info")
+                }
+
+                /// Anti-Delete Vault
+                public static var title: Swift.String {
+                    return GGLocalization.shared.string("plugins.builtin.antiDelete.title")
+                }
+            }
+
+            public enum AutoTranslate {
+                /// Real-time incoming and outgoing message translation
+                public static var info: Swift.String {
+                    return GGLocalization.shared.string("plugins.builtin.autoTranslate.info")
+                }
+
+                /// Auto-Translate
+                public static var title: Swift.String {
+                    return GGLocalization.shared.string("plugins.builtin.autoTranslate.title")
+                }
+            }
+
+            public enum CleanFeed {
+                /// Filters sponsored posts, promotional links, and spam in channels
+                public static var info: Swift.String {
+                    return GGLocalization.shared.string("plugins.builtin.cleanFeed.info")
+                }
+
+                /// Feed Content Filter
+                public static var title: Swift.String {
+                    return GGLocalization.shared.string("plugins.builtin.cleanFeed.title")
+                }
+            }
+
+            public enum MediaSaver {
+                /// Allows saving restricted and expiring media files
+                public static var info: Swift.String {
+                    return GGLocalization.shared.string("plugins.builtin.mediaSaver.info")
+                }
+
+                /// Protected Media Access
+                public static var title: Swift.String {
+                    return GGLocalization.shared.string("plugins.builtin.mediaSaver.title")
+                }
+            }
+
+            public enum SmartScheduler {
+                /// Conditional auto-replies and scheduled dispatch rules
+                public static var info: Swift.String {
+                    return GGLocalization.shared.string("plugins.builtin.smartScheduler.info")
+                }
+
+                /// Smart Dispatcher
+                public static var title: Swift.String {
+                    return GGLocalization.shared.string("plugins.builtin.smartScheduler.title")
+                }
+            }
+
+            public enum StealthMode {
+                /// Suppresses typing indicators and active presence status
+                public static var info: Swift.String {
+                    return GGLocalization.shared.string("plugins.builtin.stealthMode.info")
+                }
+
+                /// Stealth Mode
+                public static var title: Swift.String {
+                    return GGLocalization.shared.string("plugins.builtin.stealthMode.title")
+                }
+            }
+
+            public enum VoiceTurbo {
+                /// Offline speech-to-text recognition for audio and video
+                public static var info: Swift.String {
+                    return GGLocalization.shared.string("plugins.builtin.voiceTurbo.info")
+                }
+
+                /// Voice Transcription
+                public static var title: Swift.String {
+                    return GGLocalization.shared.string("plugins.builtin.voiceTurbo.title")
+                }
+            }
+        }
+
+        public enum Catalog {
+            /// Pre-installed modules verified by the HoldGram team.
+            public static var footer: Swift.String {
+                return GGLocalization.shared.string("plugins.catalog.footer")
+            }
+        }
+
+        public enum Editor {
+            /// Check Syntax
+            public static var checkSyntax: Swift.String {
+                return GGLocalization.shared.string("plugins.editor.checkSyntax")
+            }
+
+            /// Create Plugin
+            public static var createTitle: Swift.String {
+                return GGLocalization.shared.string("plugins.editor.createTitle")
+            }
+
+            /// Description and author
+            public static var descPlaceholder: Swift.String {
+                return GGLocalization.shared.string("plugins.editor.descPlaceholder")
+            }
+
+            /// Plugin Editor
+            public static var editTitle: Swift.String {
+                return GGLocalization.shared.string("plugins.editor.editTitle")
+            }
+
+            /// Plugin name (e.g. Auto-Reply)
+            public static var namePlaceholder: Swift.String {
+                return GGLocalization.shared.string("plugins.editor.namePlaceholder")
+            }
+
+            /// Please specify a plugin name
+            public static var nameRequired: Swift.String {
+                return GGLocalization.shared.string("plugins.editor.nameRequired")
+            }
+
+            /// Test in Sandbox
+            public static var openSandbox: Swift.String {
+                return GGLocalization.shared.string("plugins.editor.openSandbox")
+            }
+
+            /// Plugin «{name}» has been saved successfully.
+            public static func savedMessage(name: Swift.String) -> Swift.String {
+                return GGLocalization.shared.format("plugins.editor.savedMessage", [("name", name)])
+            }
+
+            /// Saved
+            public static var savedTitle: Swift.String {
+                return GGLocalization.shared.string("plugins.editor.savedTitle")
+            }
+
+            /// Mismatched brackets or syntax issue detected. Please verify code structure.
+            public static var syntaxErrorMessage: Swift.String {
+                return GGLocalization.shared.string("plugins.editor.syntaxErrorMessage")
+            }
+
+            /// Syntax Error
+            public static var syntaxErrorTitle: Swift.String {
+                return GGLocalization.shared.string("plugins.editor.syntaxErrorTitle")
+            }
+
+            /// All code blocks and brackets are balanced.
+            public static var syntaxValidMessage: Swift.String {
+                return GGLocalization.shared.string("plugins.editor.syntaxValidMessage")
+            }
+
+            /// Syntax Valid
+            public static var syntaxValidTitle: Swift.String {
+                return GGLocalization.shared.string("plugins.editor.syntaxValidTitle")
+            }
+        }
+
+        public enum Forum {
+            /// HoldGram plugin directory. Publish your extensions or import community configurations.
+            public static var footer: Swift.String {
+                return GGLocalization.shared.string("plugins.forum.footer")
+            }
+
+            /// Import Plugin
+            public static var `import`: Swift.String {
+                return GGLocalization.shared.string("plugins.forum.import")
+            }
+
+            /// Install from JSON manifest or script text
+            public static var importInfo: Swift.String {
+                return GGLocalization.shared.string("plugins.forum.importInfo")
+            }
+
+            /// Paste plugin JSON code or manifest:
+            public static var importMessage: Swift.String {
+                return GGLocalization.shared.string("plugins.forum.importMessage")
+            }
+
+            /// JSON manifest or script text
+            public static var importPlaceholder: Swift.String {
+                return GGLocalization.shared.string("plugins.forum.importPlaceholder")
+            }
+
+            /// Import Plugin
+            public static var importTitle: Swift.String {
+                return GGLocalization.shared.string("plugins.forum.importTitle")
+            }
+
+            /// Publish to Directory
+            public static var publish: Swift.String {
+                return GGLocalization.shared.string("plugins.forum.publish")
+            }
+
+            /// The plugin will be submitted for community catalog review.⏎Author: {author}⏎Version: {version}
+            public static func publishConfirmMessage(author: Swift.String, version: Swift.String) -> Swift.String {
+                return GGLocalization.shared.format("plugins.forum.publishConfirmMessage", [("author", author), ("version", version)])
+            }
+
+            /// Publish «{name}»
+            public static func publishConfirmTitle(name: Swift.String) -> Swift.String {
+                return GGLocalization.shared.format("plugins.forum.publishConfirmTitle", [("name", name)])
+            }
+
+            /// You do not have any custom plugins yet. Use the Plugin Editor to create your first extension.
+            public static var publishEmptyMessage: Swift.String {
+                return GGLocalization.shared.string("plugins.forum.publishEmptyMessage")
+            }
+
+            /// Community Directory
+            public static var publishEmptyTitle: Swift.String {
+                return GGLocalization.shared.string("plugins.forum.publishEmptyTitle")
+            }
+
+            /// Submit your plugin to the public HoldGram catalog
+            public static var publishInfo: Swift.String {
+                return GGLocalization.shared.string("plugins.forum.publishInfo")
+            }
+
+            /// Select a plugin to submit to the community directory:
+            public static var publishSheetMessage: Swift.String {
+                return GGLocalization.shared.string("plugins.forum.publishSheetMessage")
+            }
+
+            /// Publish Plugin
+            public static var publishSheetTitle: Swift.String {
+                return GGLocalization.shared.string("plugins.forum.publishSheetTitle")
+            }
+
+            /// Plugin «{name}» submitted successfully for catalog moderation.
+            public static func publishSuccessMessage(name: Swift.String) -> Swift.String {
+                return GGLocalization.shared.format("plugins.forum.publishSuccessMessage", [("name", name)])
+            }
+
+            /// Submitted
+            public static var publishSuccessTitle: Swift.String {
+                return GGLocalization.shared.string("plugins.forum.publishSuccessTitle")
+            }
+        }
+
+        public enum Sandbox {
+            /// EVENT DISPATCH
+            public static var actionsHeader: Swift.String {
+                return GGLocalization.shared.string("plugins.sandbox.actionsHeader")
+            }
+
+            /// Deletion
+            public static var btnDelete: Swift.String {
+                return GGLocalization.shared.string("plugins.sandbox.btnDelete")
+            }
+
+            /// Incoming
+            public static var btnIncoming: Swift.String {
+                return GGLocalization.shared.string("plugins.sandbox.btnIncoming")
+            }
+
+            /// Outgoing
+            public static var btnOutgoing: Swift.String {
+                return GGLocalization.shared.string("plugins.sandbox.btnOutgoing")
+            }
+
+            /// Interface
+            public static var btnUI: Swift.String {
+                return GGLocalization.shared.string("plugins.sandbox.btnUI")
+            }
+
+            /// Clear Console
+            public static var clearConsole: Swift.String {
+                return GGLocalization.shared.string("plugins.sandbox.clearConsole")
+            }
+
+            /// LIVE EXECUTION CONSOLE
+            public static var consoleHeader: Swift.String {
+                return GGLocalization.shared.string("plugins.sandbox.consoleHeader")
+            }
+
+            /// Peer: Hello! This is an incoming test message.
+            public static var incomingSample: Swift.String {
+                return GGLocalization.shared.string("plugins.sandbox.incomingSample")
+            }
+
+            /// You: Testing HoldGram hook execution in sandbox environment.
+            public static var outgoingSample: Swift.String {
+                return GGLocalization.shared.string("plugins.sandbox.outgoingSample")
+            }
+
+            /// Hook Engine: Ready for events
+            public static var readyStatus: Swift.String {
+                return GGLocalization.shared.string("plugins.sandbox.readyStatus")
+            }
+
+            /// Reset Environment
+            public static var resetEnv: Swift.String {
+                return GGLocalization.shared.string("plugins.sandbox.resetEnv")
+            }
+
+            /// Message Simulation
+            public static var simulationTitle: Swift.String {
+                return GGLocalization.shared.string("plugins.sandbox.simulationTitle")
+            }
+
+            /// Testing Sandbox
+            public static var title: Swift.String {
+                return GGLocalization.shared.string("plugins.sandbox.title")
+            }
+        }
+
+        public enum Section {
+            /// Verified Extensions
+            public static var catalog: Swift.String {
+                return GGLocalization.shared.string("plugins.section.catalog")
+            }
+
+            /// Community & Exchange
+            public static var forum: Swift.String {
+                return GGLocalization.shared.string("plugins.section.forum")
+            }
+
+            /// Development Tools
+            public static var tools: Swift.String {
+                return GGLocalization.shared.string("plugins.section.tools")
+            }
+
+            /// Custom Plugins
+            public static var user: Swift.String {
+                return GGLocalization.shared.string("plugins.section.user")
+            }
+        }
+
+        public enum Tools {
+            /// Plugin Editor
+            public static var editor: Swift.String {
+                return GGLocalization.shared.string("plugins.tools.editor")
+            }
+
+            /// Create and edit custom scripts and hooks
+            public static var editorInfo: Swift.String {
+                return GGLocalization.shared.string("plugins.tools.editorInfo")
+            }
+
+            /// Testing Sandbox
+            public static var sandbox: Swift.String {
+                return GGLocalization.shared.string("plugins.tools.sandbox")
+            }
+
+            /// Interactive environment and live console for debugging hooks
+            public static var sandboxInfo: Swift.String {
+                return GGLocalization.shared.string("plugins.tools.sandboxInfo")
+            }
+        }
+
+        public enum User {
+            /// Installed plugins: {count}
+            public static func count(count: Swift.Int) -> Swift.String {
+                return GGLocalization.shared.format("plugins.user.count", [("count", Swift.String(count))])
+            }
+
+            /// No custom plugins installed
+            public static var empty: Swift.String {
+                return GGLocalization.shared.string("plugins.user.empty")
+            }
+
+            /// Custom plugins created in the editor or imported from files.
+            public static var footer: Swift.String {
+                return GGLocalization.shared.string("plugins.user.footer")
+            }
+
+            /// Installed Extensions
+            public static var manage: Swift.String {
+                return GGLocalization.shared.string("plugins.user.manage")
+            }
+        }
+    }
+
     public enum RegDate {
         public enum Age {
             /// ≈ {age}
