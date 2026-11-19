@@ -39,6 +39,7 @@ public enum GGSettingsUI {
         ggRegisterBuiltInRows()
         ggRegisterLicensesTab()
         ggRegisterDeveloperRows()
+        ggRegisterPluginsRows()
     }
 
     /// Categories and tabs without rows are hidden, so nothing dead is ever reachable. The demo

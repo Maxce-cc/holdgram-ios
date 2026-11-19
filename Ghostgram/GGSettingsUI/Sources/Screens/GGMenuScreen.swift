@@ -107,18 +107,15 @@ final class GGMenuScreenArguments {
 /// The project's public chats: shown on the root and in «О приложении».
 let ggMenuLinks: [(id: String, url: String, username: String, icon: GGMenuIcon)] = [
     (id: "channel", url: "https://t.me/holddgrm", username: "@holddgrm", icon: .bundle("Chat/Context Menu/Channels")),
-    (id: "chat", url: "https://t.me/holdgrmchat", username: "@holdgrmchat", icon: .bundle("Chat/Context Menu/Groups")),
-    (id: "forum", url: "https://t.me/ghostgramforum", username: "@ghostgramforum", icon: .bundle("Chat/Context Menu/Replies"))
+    (id: "chat", url: "https://t.me/holdgrmchat", username: "@holdgrmchat", icon: .bundle("Chat/Context Menu/Groups"))
 ]
 
 func ggMenuLinkTitle(_ id: String) -> String {
     switch id {
     case "channel":
         return GGStrings.Menu.Root.channel
-    case "chat":
-        return GGStrings.Menu.Root.chat
     default:
-        return GGStrings.Menu.Root.forum
+        return GGStrings.Menu.Root.chat
     }
 }
 

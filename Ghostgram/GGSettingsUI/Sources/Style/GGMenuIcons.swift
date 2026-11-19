@@ -136,10 +136,10 @@ private func ggRenderMenuIcon(_ icon: GGMenuIcon, color: UIColor) -> UIImage? {
 private let ggSettingsTileName = "GGSettingsUI/SettingsTile"
 
 private func ggRenderHeaderMark(color: UIColor) -> UIImage? {
-    let side = ggSettingsHeaderMarkSide
     if let image = UIImage(bundleImageName: ggHeaderGhostName) {
-        return generateTintedImage(image: image, color: color)
+        return image
     }
+    let side = ggSettingsHeaderMarkSide
     // The asset catalog is missing: the row glyph, scaled up (soft, but never a blank header).
     let glyph = UIImage(bundleImageName: ggGhostGlyphName).flatMap { generateTintedImage(image: $0, color: color) } ?? ggVectorGhost(size: CGSize(width: side, height: side), color: color)
     guard let glyph else {

@@ -13,7 +13,6 @@ import GGSettingsUI
 
 func ggMakeNickBadgeScreen(context: AccountContext) -> ViewController {
     let accountPeerId = context.account.peerId
-    weak var controllerRef: ItemListController?
 
     let configSignal: Signal<GGNickBadgeServerConfig?, NoError> = GGNickBadgeSettings.isEnabled.signal
     |> distinctUntilChanged
@@ -23,7 +22,7 @@ func ggMakeNickBadgeScreen(context: AccountContext) -> ViewController {
     let changes: Signal<Void, NoError> = .single(Void()) |> then(GGNickBadgeService.shared.changes)
 
     let model = combineLatest(queue: .mainQueue(), GGNickBadgeSettings.isEnabled.signal, configSignal, changes, GGLocalization.shared.languageCodeSignal)
-    |> map { isEnabled, config, _, _ -> GGPEScreenModel in
+    |> map { isEnabled, _, _, _ -> GGPEScreenModel in
         var model = GGPEScreenModel(title: GGStrings.NickBadge.Screen.title)
 
         let badge = isEnabled ? GGNickBadgeService.shared.badge(for: accountPeerId) : nil
@@ -50,52 +49,12 @@ func ggMakeNickBadgeScreen(context: AccountContext) -> ViewController {
         }
         model.sections.append(statusSection)
 
-        var getSection: [GGPERow] = [GGPERow(id: "getHeader", kind: .header(GGStrings.NickBadge.Screen.getHeader))]
-        if let config = config {
-            if let price = config.standard {
-                getSection.append(GGPERow(id: "planStandard", kind: .disclosure(title: GGStrings.NickBadge.Screen.planStandard, label: ggNickBadgePriceLabel(price), icon: nil, enabled: true)))
-            }
-            if let price = config.custom {
-                getSection.append(GGPERow(id: "planCustom", kind: .disclosure(title: GGStrings.NickBadge.Screen.planCustom, label: ggNickBadgePriceLabel(price), icon: nil, enabled: true)))
-            }
-        } else {
-            getSection.append(GGPERow(id: "pricesLoading", kind: .disclosure(title: GGStrings.NickBadge.Screen.pricesLoading, label: "", icon: nil, enabled: false)))
-        }
-        getSection.append(GGPERow(id: "openBot", kind: .action(title: GGStrings.NickBadge.Screen.openBot, destructive: false, enabled: true)))
-        let bot = config?.bot ?? GGNickBadgeService.shared.botUsername
-        getSection.append(GGPERow(id: "info", kind: .footer(GGStrings.NickBadge.Screen.info(bot: bot))))
-        let openBot = {
-            guard let navigationController = controllerRef?.navigationController as? NavigationController else {
-                return
-            }
-            GGNickBadgeService.shared.noteWentToBot()
-            ggProfileExportOpenTelegramLink(context: context, url: "https://t.me/" + bot, navigationController: navigationController)
-        }
-        model.tap["planStandard"] = openBot
-        model.tap["planCustom"] = openBot
-        model.tap["openBot"] = openBot
-        model.sections.append(getSection)
         return model
     }
 
-    let controller = ggPEMakeListController(context: context, model: model)
-    controllerRef = controller
-    return controller
+    return ggPEMakeListController(context: context, model: model)
 }
 
-/// «590 ₽ · 250 ⭐️», «$5 · 250 ⭐️» — whatever the server knows.
-func ggNickBadgePriceLabel(_ price: GGNickBadgeServerConfig.Price) -> String {
-    var parts: [String] = []
-    if let local = price.local {
-        parts.append(local)
-    } else if let usd = price.usd {
-        parts.append(GGStrings.NickBadge.Screen.priceUsd(amount: usd))
-    }
-    if let stars = price.stars {
-        parts.append(GGStrings.NickBadge.Screen.priceStars(amount: "\(stars)"))
-    }
-    return parts.joined(separator: " · ")
-}
 
 // MARK: - Menu (More › Nick badge)
 

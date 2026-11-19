@@ -201,7 +201,7 @@ enum InterfaceSettings {
     /// which is never shown (`GGIslandBadge`).
     static let islandBadge = GGSetting<Bool>("interface.islandBadge.enabled", default: true)
     /// "ghostgram" (bundled) or the id of a studio badge.
-    static let islandBadgeSelection = GGSetting<String>("interface.islandBadge.selection", default: "ghostgram")
+    static let islandBadgeSelection = GGSetting<String>("interface.islandBadge.selection", default: "holdgram")
 
     // MARK: Telegram's Settings tab (settings_structure)
 

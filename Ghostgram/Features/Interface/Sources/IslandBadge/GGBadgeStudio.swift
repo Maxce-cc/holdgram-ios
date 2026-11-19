@@ -27,7 +27,7 @@ final class GGBadgeStudioController: ViewController {
         self.context = context
         self.presentationData = context.sharedContext.currentPresentationData.with { $0 }
         self.isNew = document == nil
-        self.document = document ?? GGBadgeDocument.new(name: GGStrings.Interface.Badge.defaultName, text: "Ghostgram")
+        self.document = document ?? GGBadgeDocument.new(name: GGStrings.Interface.Badge.defaultName, text: "HoldGram")
         self.initialAssets = assets
         self.completion = completion
         super.init(navigationBarPresentationData: NavigationBarPresentationData(presentationData: self.presentationData))
@@ -59,7 +59,7 @@ final class GGBadgeStudioController: ViewController {
             guard let self else {
                 return
             }
-            ggPresentTextPrompt(from: self, title: GGStrings.Interface.Badge.textPrompt, text: current, placeholder: "Ghostgram", cancel: self.presentationData.strings.Common_Cancel, done: self.presentationData.strings.Common_Done, completion: { text in
+            ggPresentTextPrompt(from: self, title: GGStrings.Interface.Badge.textPrompt, text: current, placeholder: "HoldGram", cancel: self.presentationData.strings.Common_Cancel, done: self.presentationData.strings.Common_Done, completion: { text in
                 completion(String(text.prefix(40)))
             })
         }

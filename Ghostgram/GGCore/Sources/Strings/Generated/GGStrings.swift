@@ -9221,11 +9221,6 @@ public enum GGStrings {
                 return GGLocalization.shared.format("menu.root.footer", [("version", version)])
             }
 
-            /// Forum
-            public static var forum: Swift.String {
-                return GGLocalization.shared.string("menu.root.forum")
-            }
-
             /// Links
             public static var links: Swift.String {
                 return GGLocalization.shared.string("menu.root.links")
@@ -9935,49 +9930,9 @@ public enum GGStrings {
         }
 
         public enum Screen {
-            /// Get a badge
-            public static var getHeader: Swift.String {
-                return GGLocalization.shared.string("nickBadge.screen.getHeader")
-            }
-
-            /// Your badge is shown next to your name to everyone who uses HoldGram with badges turned on. It goes to the Telegram account that paid for it in @{bot}. One pa...
-            public static func info(bot: Swift.String) -> Swift.String {
-                return GGLocalization.shared.format("nickBadge.screen.info", [("bot", bot)])
-            }
-
             /// Badges are turned off. Turn on «Show badges» to see your badge and other people's.
             public static var offFooter: Swift.String {
                 return GGLocalization.shared.string("nickBadge.screen.offFooter")
-            }
-
-            /// Get it in the bot
-            public static var openBot: Swift.String {
-                return GGLocalization.shared.string("nickBadge.screen.openBot")
-            }
-
-            /// Custom badge
-            public static var planCustom: Swift.String {
-                return GGLocalization.shared.string("nickBadge.screen.planCustom")
-            }
-
-            /// GCONNECT badge
-            public static var planStandard: Swift.String {
-                return GGLocalization.shared.string("nickBadge.screen.planStandard")
-            }
-
-            /// {amount} ⭐️
-            public static func priceStars(amount: Swift.String) -> Swift.String {
-                return GGLocalization.shared.format("nickBadge.screen.priceStars", [("amount", amount)])
-            }
-
-            /// ${amount}
-            public static func priceUsd(amount: Swift.String) -> Swift.String {
-                return GGLocalization.shared.format("nickBadge.screen.priceUsd", [("amount", amount)])
-            }
-
-            /// Loading prices…
-            public static var pricesLoading: Swift.String {
-                return GGLocalization.shared.string("nickBadge.screen.pricesLoading")
             }
 
             /// Your badge
